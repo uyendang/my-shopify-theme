@@ -1,0 +1,609 @@
+<div class="gelish-efile-outer-{{ section.id }}">
+  <section class="gelish-efile-container">
+    <div class="gelish-efile-grid">
+      
+      <!-- Left Info Panel -->
+      <div class="gelish-efile-content">
+        {% if section.settings.subtitle != blank %}
+          <span class="gelish-efile-subtitle">{{ section.settings.subtitle }}</span>
+        {% endif %}
+        {% if section.settings.title != blank %}
+          <h2 class="gelish-efile-title">{{ section.settings.title }}</h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <p class="gelish-efile-desc">{{ section.settings.description }}</p>
+        {% endif %}
+
+        <!-- Interactive Spec/Price card mimicking image_cb3b68.png -->
+        <div class="gelish-efile-spec-card">
+          <div class="gelish-efile-card-header">
+            <h3 class="gelish-efile-card-title">{{ section.settings.card_title }}</h3>
+            <span class="gelish-efile-tag">{{ section.settings.card_badge }}</span>
+          </div>
+          <p class="gelish-efile-card-text">{{ section.settings.card_description }}</p>
+          
+          <div class="gelish-efile-price-row">
+            {%- assign product = section.settings.featured_product -%}
+            {%- if product != blank -%}
+              <span class="gelish-efile-price">{{ product.price | money }}</span>
+            {%- else -%}
+              <span class="gelish-efile-price">{{ section.settings.price }}</span>
+            {%- endif -%}
+            
+            <!-- Button is now nestled directly inside the card row layout -->
+            <div class="gelish-efile-card-action">
+              {%- if product != blank -%}
+                <form method="post" action="/cart/add" enctype="multipart/form-data">
+                  <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
+                  <button type="submit" class="gelish-efile-cta-btn" {% unless product.available %}disabled{% endunless %}>
+                    {%- if product.available -%}
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                      </svg>
+                      {{ section.settings.btn_label }}
+                    {%- else -%}
+                      Sold Out
+                    {%- endif -%}
+                  </button>
+                </form>
+              {%- elsif section.settings.btn_link != blank -%}
+                <a href="{{ section.settings.btn_link }}" class="gelish-efile-cta-btn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                  </svg>
+                  {{ section.settings.btn_label }} — In Stock
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Feature Display Frame matching image_cb3b68.png -->
+      <div class="gelish-efile-card-right">
+        <div class="gelish-efile-neon-glow"></div>
+
+        <div class="gelish-efile-stamp">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" fill="none"/>
+            <path d="M12 8V12L14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>{{ section.settings.stamp_text_line1 }}<br>{{ section.settings.stamp_text_line2 }}</span>
+        </div>
+
+        <div class="gelish-efile-image-container">
+          {% if section.settings.image != blank %}
+            <img 
+              src="{{ section.settings.image | image_url: width: 800 }}" 
+              alt="{{ section.settings.image.alt | escape }}"
+              width="{{ section.settings.image.width }}"
+              height="{{ section.settings.image.height }}"
+              loading="lazy"
+            >
+          {% else %}
+            <svg width="150" height="250" viewBox="0 0 100 200" fill="none" style="opacity: 0.15;">
+              <rect x="35" y="10" width="30" height="150" rx="15" fill="#231317"/>
+              <circle cx="50" cy="85" r="12" fill="#B58282"/>
+              <rect x="47" y="160" width="6" height="30" fill="#231317"/>
+            </svg>
+          {% endif %}
+        </div>
+
+        <div class="gelish-efile-specs-footer">
+          <div class="gelish-efile-footer-col">
+            <span class="gelish-efile-footer-label">{{ section.settings.spec1_label }}</span>
+            <span class="gelish-efile-footer-value">{{ section.settings.spec1_val }}</span>
+          </div>
+          <div class="gelish-efile-footer-col">
+            <span class="gelish-efile-footer-label">{{ section.settings.spec2_label }}</span>
+            <span class="gelish-efile-footer-value">{{ section.settings.spec2_val }}</span>
+          </div>
+          <div class="gelish-efile-footer-col">
+            <span class="gelish-efile-footer-label">{{ section.settings.spec3_label }}</span>
+            <span class="gelish-efile-footer-value">{{ section.settings.spec3_val }}</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+</div>
+
+{%- style -%}
+  .gelish-efile-outer-{{ section.id }} {
+    width: 100%;
+    background-color: {{ section.settings.section_bg }};
+    display: block;
+  }
+
+  .gelish-efile-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 80px 4%;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .gelish-efile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .gelish-efile-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .gelish-efile-subtitle {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: {{ section.settings.accent_color }};
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .gelish-efile-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+    color: {{ section.settings.text_dark }};
+    margin: 0 0 20px 0;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  .gelish-efile-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #666666;
+    margin-bottom: 30px;
+    font-weight: 300;
+  }
+
+  .gelish-efile-spec-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    border: 1px solid {{ section.settings.card_border }};
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(35, 19, 23, 0.02);
+  }
+
+  .gelish-efile-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .gelish-efile-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: {{ section.settings.text_dark }};
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .gelish-efile-tag {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: {{ section.settings.accent_color }};
+    background-color: {{ section.settings.icon_bg_tint }};
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+
+  .gelish-efile-card-text {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #555555;
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+
+  .gelish-efile-price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    border-top: 1px solid {{ section.settings.card_border }};
+    padding-top: 20px;
+  }
+
+  .gelish-efile-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: {{ section.settings.text_dark }};
+    white-space: nowrap;
+  }
+
+  .gelish-efile-card-action {
+    flex-grow: 1;
+    max-width: 65%;
+  }
+
+  .gelish-efile-cta-btn {
+    background-color: {{ section.settings.btn_bg }};
+    color: #ffffff;
+    border: none;
+    outline: none;
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    width: 100%;
+  }
+
+  .gelish-efile-cta-btn:hover {
+    opacity: 0.95;
+    transform: translateY(-1px);
+  }
+
+  .gelish-efile-cta-btn:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    transform: none;
+    opacity: 0.7;
+  }
+
+  .gelish-efile-card-right {
+    background-color: #ffffff;
+    border-radius: 40px;
+    border: 1px solid {{ section.settings.card_border }};
+    box-shadow: 0 20px 50px rgba(35, 19, 23, 0.04);
+    position: relative;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    aspect-ratio: 1.2 / 1;
+    overflow: visible;
+  }
+
+  .gelish-efile-neon-glow {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    background: radial-gradient(circle, {{ section.settings.glow_color | color_modify: 'alpha', 0.25 }} 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .gelish-efile-image-container {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 30px;
+    min-height: 250px;
+    max-height: 400px;     
+    overflow: hidden; 
+  }
+
+  .gelish-efile-image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .gelish-efile-stamp {
+    position: absolute;
+    top: -24px;
+    right: -24px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background-color: {{ section.settings.stamp_bg }};
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(224, 58, 62, 0.15);
+    z-index: 3;
+    animation: pulseBadge 3s infinite ease-in-out;
+  }
+
+  .gelish-efile-stamp svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    margin-bottom: 4px;
+  }
+
+  .gelish-efile-stamp span {
+    font-size: 8px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.1;
+  }
+
+  .gelish-efile-specs-footer {
+    border-top: 1px solid #F3ECE8;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding-top: 24px;
+    margin-top: auto;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .gelish-efile-footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .gelish-efile-footer-col:not(:last-child) {
+    border-right: 1px solid #F3ECE8;
+  }
+
+  .gelish-efile-footer-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .gelish-efile-footer-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: {{ section.settings.text_dark }};
+  }
+
+  @keyframes pulseBadge {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  @media screen and (max-width: 990px) {
+    .gelish-efile-grid {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+    .gelish-efile-card-right {
+      aspect-ratio: auto;
+      padding: 30px;
+    }
+    .gelish-efile-stamp {
+      top: -15px;
+      right: -15px;
+      width: 80px;
+      height: 80px;
+    }
+    .gelish-efile-price-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+    .gelish-efile-card-action {
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Custom Product Featured",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Add to Cart Integration"
+    },
+    {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Choose Product for Add To Cart"
+    },
+    {
+      "type": "header",
+      "content": "Theme Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section Background",
+      "default": "#FAF6F3"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Card Border Lines",
+      "default": "#F2E6E1"
+    },
+    {
+      "type": "color",
+      "id": "icon_bg_tint",
+      "label": "Badge Background Tint",
+      "default": "#F2E6E1"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#B58282"
+    },
+    {
+      "type": "color",
+      "id": "text_dark",
+      "label": "Primary Text",
+      "default": "#231317"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Action Button Background",
+      "default": "#231317"
+    },
+    {
+      "type": "color",
+      "id": "glow_color",
+      "label": "Glow Color Overlay (Neon)",
+      "default": "#FF6B6B"
+    },
+    {
+      "type": "color",
+      "id": "stamp_bg",
+      "label": "Badge Stamp Color",
+      "default": "#E03A3E"
+    },
+    {
+      "type": "header",
+      "content": "Left Side Text Settings"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Feature Subtitle",
+      "default": "PREMIUM DEVICE LAB"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Feature Title",
+      "default": "Go-File Cordless Electric File"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Primary Description",
+      "default": "Experience ultimate precision and torque with the all-new Gelish professional E-File. Designed for smooth, whisper-quiet operations and zero vibration."
+    },
+    {
+      "type": "text",
+      "id": "card_title",
+      "label": "Card Title",
+      "default": "Go-File Hybrid"
+    },
+    {
+      "type": "text",
+      "id": "card_badge",
+      "label": "Card Badge Text",
+      "default": "#GOFILE-90"
+    },
+    {
+      "type": "textarea",
+      "id": "card_description",
+      "label": "Card Description Text",
+      "default": "A lightweight power station engineered with high-impact brushless motors to withstand rigorous daily salon assignments."
+    },
+    {
+      "type": "text",
+      "id": "price",
+      "label": "Price Tag Display (Fallback)",
+      "default": "$349.00"
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Button Label",
+      "default": "Add To Cart"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Fallback Link"
+    },
+    {
+      "type": "header",
+      "content": "Right Side Image & Floating Badge"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product Showcase Image"
+    },
+    {
+      "type": "text",
+      "id": "stamp_text_line1",
+      "label": "Floating Stamp Line 1",
+      "default": "CORDLESS"
+    },
+    {
+      "type": "text",
+      "id": "stamp_text_line2",
+      "label": "Floating Stamp Line 2",
+      "default": "POWER"
+    },
+    {
+      "type": "header",
+      "content": "Technical Spec Columns (Footer)"
+    },
+    {
+      "type": "text",
+      "id": "spec1_label",
+      "label": "Spec 1 Label",
+      "default": "SPEED / POWER"
+    },
+    {
+      "type": "text",
+      "id": "spec1_val",
+      "label": "Spec 1 Value",
+      "default": "35,000 RPM"
+    },
+    {
+      "type": "text",
+      "id": "spec2_label",
+      "label": "Spec 2 Label",
+      "default": "BATTERY LIFE"
+    },
+    {
+      "type": "text",
+      "id": "spec2_val",
+      "label": "Spec 2 Value",
+      "default": "10 Hours Use"
+    },
+    {
+      "type": "text",
+      "id": "spec3_label",
+      "label": "Spec 3 Label",
+      "default": "MOTOR TYPE"
+    },
+    {
+      "type": "text",
+      "id": "spec3_val",
+      "label": "Spec 3 Value",
+      "default": "Brushless Hybrid"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Homepage New Product Featured"
+    }
+  ]
+}
+{% endschema %}
+

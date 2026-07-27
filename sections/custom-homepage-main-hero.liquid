@@ -1,0 +1,291 @@
+
+<div class="gelish-hero-wrapper-{{ section.id }}">
+  <section class="gelish-hero-container">
+    <div class="gelish-hero-content">
+      {% if section.settings.badge_text_val != blank %}
+        <div class="gelish-hero-badge">
+          {{ section.settings.badge_text_val }}
+        </div>
+      {% endif %}
+      
+      <h1 class="gelish-hero-title">
+        {{ section.settings.title_line1 }}
+        <em>{{ section.settings.title_line2 }}</em>
+      </h1>
+      
+      <div class="gelish-hero-text">
+        {{ section.settings.paragraph }}
+      </div>
+      
+      <div class="gelish-hero-buttons">
+        {% if section.settings.btn1_label != blank %}
+          <a href="{{ section.settings.btn1_link }}" class="gelish-btn-primary">
+            {{ section.settings.btn1_label }} &rarr;
+          </a>
+        {% endif %}
+        {% if section.settings.btn2_label != blank %}
+          <a href="{{ section.settings.btn2_link }}" class="gelish-btn-secondary">
+            {{ section.settings.btn2_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="gelish-hero-image-wrapper">
+      <div class="gelish-hero-card">
+        {% if section.settings.hero_image != blank %}
+          <img 
+            src="{{ section.settings.hero_image | image_url: width: 1200 }}" 
+            alt="{{ section.settings.hero_image.alt | escape }}" 
+            loading="lazy"
+            width="{{ section.settings.hero_image.width }}"
+            height="{{ section.settings.hero_image.height }}"
+            style="aspect-ratio: {{ section.settings.hero_image.aspect_ratio }};"
+          >
+        {% else %}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+    </div>
+  </section>
+</div>
+
+{%- style -%}
+
+.gelish-hero-wrapper-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    width: 100%;
+    display: block;
+  }
+
+  .gelish-hero-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 60px 4%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px; 
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .gelish-hero-content {
+    flex: 1;
+    max-width: 500px;
+  }
+
+  .gelish-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: {{ section.settings.badge_bg }};
+    color: {{ section.settings.badge_text }};
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+
+  .gelish-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    line-height: 1.1;
+    color: {{ section.settings.text_color_dark }};
+    margin: 0 0 20px 0;
+    font-weight: 400;
+  }
+
+  .gelish-hero-title em {
+    font-style: italic;
+    color: {{ section.settings.text_color_accent }};
+    display: block;
+  }
+
+  .gelish-hero-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555555;
+    margin-bottom: 36px;
+    font-weight: 300;
+  }
+
+  .gelish-hero-buttons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .gelish-btn-primary {
+    background-color: {{ section.settings.text_color_dark }};
+    color: #ffffff;
+    padding: 16px 32px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.2s ease;
+  }
+
+  .gelish-btn-secondary {
+    background-color: transparent;
+    color: {{ section.settings.text_color_dark }};
+    border: 1.5px solid {{ section.settings.text_color_dark }};
+    padding: 16px 32px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .gelish-btn-primary:hover, .gelish-btn-secondary:hover {
+    opacity: 0.9;
+  }
+
+  .gelish-hero-image-wrapper {
+    flex: 1.2;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .gelish-hero-card {
+    width: 100%;
+    max-width: 650px;
+    aspect-ratio: 1.5 / 1;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+    background-color: #ffffff;
+  }
+
+  .gelish-hero-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 990px) {
+    .gelish-hero-container {
+      flex-direction: column;
+      padding: 120px 0px;
+      text-align: center;
+      gap: 40px;
+    }
+    .gelish-hero-content {
+      max-width: 98%;
+    }
+    .gelish-hero-title {
+      font-size: 44px;
+    }
+    .gelish-hero-buttons {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .gelish-hero-image-wrapper {
+      width: 90%;
+    }
+    .gelish-hero-card {
+      border-radius: 24px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Custom Homepage Main Hero",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FAF6F3"
+    },
+    {
+      "type": "color",
+      "id": "text_color_dark",
+      "label": "Primary Text / Button Color",
+      "default": "#231317"
+    },
+    {
+      "type": "color",
+      "id": "text_color_accent",
+      "label": "Italic Title Color",
+      "default": "#B58282"
+    },
+    {
+      "type": "text",
+      "id": "badge_text_val",
+      "label": "Badge Text",
+      "default": "✦ PATENTED FORMULA ✦ SALON CHIC"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg",
+      "label": "Badge Background",
+      "default": "#F2E6E1"
+    },
+    {
+      "type": "color",
+      "id": "badge_text",
+      "label": "Badge Text Color",
+      "default": "#B58282"
+    },
+    {
+      "type": "text",
+      "id": "title_line1",
+      "label": "Title Line 1",
+      "default": "Salon Quality"
+    },
+    {
+      "type": "text",
+      "id": "title_line2",
+      "label": "Title Line 2 (Italicized)",
+      "default": "At Your Fingertips."
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph",
+      "label": "Paragraph Text",
+      "default": "Flawless professional wear for up to 21 continuous days. Experience the iconic soak-off gel formula that revolutionized nail styling worldwide."
+    },
+    {
+      "type": "text",
+      "id": "btn1_label",
+      "label": "Button 1 Label",
+      "default": "Explore Soak-Off Shades"
+    },
+    {
+      "type": "url",
+      "id": "btn1_link",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "text",
+      "id": "btn2_label",
+      "label": "Button 2 Label",
+      "default": "Shop Essential Care"
+    },
+    {
+      "type": "url",
+      "id": "btn2_link",
+      "label": "Button 2 Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Homepage Main Hero"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,356 @@
+<div class="gelish-grid-outer-{{ section.id }}">
+  <section class="gelish-grid-container">
+    
+    <div class="gelish-grid-header">
+      {% if section.settings.subtitle != blank %}
+        <span class="gelish-grid-subtitle">{{ section.settings.subtitle }}</span>
+      {% endif %}
+      {% if section.settings.title != blank %}
+        <h2 class="gelish-grid-main-title">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.description != blank %}
+        <p class="gelish-grid-desc">{{ section.settings.description }}</p>
+      {% endif %}
+    </div>
+
+    <div class="gelish-card-wrapper">
+      {%- for block in section.blocks -%}
+        <div class="gelish-feature-card" {{ block.shopify_attributes }}>
+          <div>
+            <div class="gelish-icon-box">
+              {%- case block.settings.icon_select -%}
+                {%- when 'brush' -%}
+                  <!-- Sparkles/Brush Icon -->
+                  <svg viewBox="0 0 24 24"><path d="M7.5 5.6L5.6 7.5l1.9 1.9 1.9-1.9L7.5 5.6zm10.9 0l-1.9 1.9 1.9 1.9 1.9-1.9-1.9-1.9zM12 2a1 1 0 0 0-1 1v3a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1zm0 14a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm-6.4-3.6l-1.9-1.9-1.9 1.9 1.9 1.9 1.9-1.9zm14.8 0l-1.9 1.9 1.9 1.9 1.9-1.9-1.9-1.9zM12 8a4 4 0 0 0-4 4c0 .5.1.9.3 1.3l-2.6 2.6c-.4.4-.4 1 0 1.4l1.4 1.4c.4.4 1 .4 1.4 0l2.6-2.6c.4.2.8.3 1.3.3a4 4 0 0 0 4-4 4 4 0 0 0-4-4z"/></svg>
+                {%- when 'shield' -%}
+                  <!-- Protection Shield Icon -->
+                  <svg viewBox="0 0 24 24"><path d="M12 2S3 5 3 12c0 5.25 4.5 9.25 9 10 4.5-.75 9-4.75 9-10 0-7-9-10-9-10zm0 17.92c-3.45-.66-7-4-7-7.92 0-4.91 5.75-7.1 7-7.53 1.25.43 7 2.62 7 7.53 0 3.92-3.55 7.26-7 7.92z"/></svg>
+                {%- when 'lightning' -%}
+                  <!-- Lightning Bolt LED Icon -->
+                  <svg viewBox="0 0 24 24"><path d="M11 21h-1a1 1 0 0 1-1-1.22l1.35-6.78H7a1 1 0 0 1-.84-1.54l6-9a1 1 0 0 1 1.47-.19l.1.11a1 1 0 0 1 .27.82L12.65 11H16a1 1 0 0 1 .84 1.54l-6 9A1 1 0 0 1 11 21z"/></svg>
+                {%- when 'polish' -%}
+                    <!-- Premium Nail Polish Bottle Icon -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="10" y="2" width="4" height="8" rx="1" fill="currentColor" />
+                    <rect x="6" y="10" width="12" height="12" rx="4" />
+                    <path d="M9 13c.5.5.5 1.5 0 2" stroke-width="1.5" />
+                    </svg>
+                {%- when 'nail' -%}
+                    <!-- Elegant Manicured Fingernail Icon -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 21V10c0-2.5 1.5-5 5-5s5 2.5 5 5v11" />
+                    <path d="M10 10c0-1.5 1-2.5 2-2.5s2 1 2 2.5v4c0 1.5-1 2.5-2 2.5s-2-1-2-2.5V10z" fill="currentColor" fill-opacity="0.15" />
+                    </svg>
+                {%- when 'file' -%}
+                    <!-- Professional Nail File / Buffer Icon -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="10" width="18" height="4" rx="2" transform="rotate(-45 12 12)" />
+                    <line x1="7" y1="17" x2="17" y2="7" stroke-dasharray="2 2" stroke-width="1" />
+                    </svg>
+                {%- when 'droplet' -%}
+                    <!-- Cuticle Oil / Treatment Drop Icon -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22a7 7 0 0 0 7-7c0-4.3-7-13-7-13S5 10.7 5 15a7 7 0 0 0 7 7z" />
+                    <path d="M12 18a3 3 0 0 0 3-3" stroke-width="1.2" />
+                    </svg>
+                {%- endcase -%}
+            </div>
+            
+            <h3 class="gelish-card-title">{{ block.settings.card_title }}</h3>
+            <p class="gelish-card-text">{{ block.settings.card_text }}</p>
+          </div>
+          
+          {% if block.settings.link_label != blank %}
+            <a href="{{ block.settings.link_url }}" class="gelish-card-link">
+              {{ block.settings.link_label }} &rarr;
+            </a>
+          {% endif %}
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </section>
+</div>
+
+{%- style -%}
+  .gelish-grid-outer-{{ section.id }} {
+    width: 100%;
+    background-color: {{ section.settings.section_bg }};
+    display: block;
+  }
+
+  .gelish-grid-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 80px 4%;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .gelish-grid-header {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 50px auto;
+  }
+
+  .gelish-grid-subtitle {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: {{ section.settings.accent_color }};
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .gelish-grid-main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    color: {{ section.settings.text_dark }};
+    margin: 0 0 16px 0;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .gelish-grid-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #666666;
+    font-weight: 300;
+  }
+
+  /* 3-Column Card Layout */
+  .gelish-card-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  .gelish-feature-card {
+    background-color: {{ section.settings.card_bg }};
+    border: 1px solid {{ section.settings.card_border }};
+    border-radius: 28px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    min-height: 320px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .gelish-feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(35, 19, 23, 0.03);
+  }
+
+  .gelish-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background-color: {{ section.settings.icon_bg }};
+    color: {{ section.settings.accent_color }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+
+  .gelish-icon-box svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+
+  .gelish-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: {{ section.settings.text_dark }};
+    margin: 0 0 14px 0;
+    font-weight: 400;
+  }
+
+  .gelish-card-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555555;
+    margin: 0 0 30px 0;
+    font-weight: 300;
+  }
+
+  .gelish-card-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: {{ section.settings.accent_color }};
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: auto;
+    transition: gap 0.2s ease;
+  }
+
+  .gelish-card-link:hover {
+    gap: 10px;
+  }
+
+  @media screen and (max-width: 990px) {
+    .gelish-grid-container {
+      padding: 60px 20px;
+    }
+    .gelish-grid-main-title {
+      font-size: 32px;
+    }
+    .gelish-card-wrapper {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .gelish-feature-card {
+      padding: 30px;
+      min-height: auto;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Custom Homepage Grid",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card Background Color",
+      "default": "#FAF6F3"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Card Border Color",
+      "default": "#F2E6E1"
+    },
+    {
+      "type": "color",
+      "id": "icon_bg",
+      "label": "Icon Background Box Color",
+      "default": "#F2E6E1"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (Links & Badges)",
+      "default": "#B58282"
+    },
+    {
+      "type": "color",
+      "id": "text_dark",
+      "label": "Titles Font Color",
+      "default": "#231317"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "VISUAL CURATION"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Explore Our Signature Collections"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Section Description",
+      "default": "Explore premium nail polishes, award-winning base coats, and state-of-the-art curing units built for commercial durability."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "Collection Card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon_select",
+          "label": "Card Icon",
+          "options": [
+            { "value": "brush", "label": "Sparkle Brush" },
+            { "value": "shield", "label": "Shield Layer" },
+            { "value": "lightning", "label": "Lightning Bolt (LED)" },
+            { "value": "polish", "label": "Nail Polish Bottle" },
+            { "value": "nail", "label": "Manicured Nail" },
+            { "value": "file", "label": "Nail File / Buffer" },
+            { "value": "droplet", "label": "Cuticle Treatment Drop" }
+            
+          ],
+          "default": "brush"
+        },
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card Title",
+          "default": "Collection Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "card_text",
+          "label": "Card Description",
+          "default": "Add detailed summary here describing target variant categories."
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link Text",
+          "default": "Browse Library"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Homepage Collection Grid",
+      "blocks": [
+        {
+          "type": "collection_card",
+          "settings": {
+            "icon_select": "brush",
+            "card_title": "Gelish Soak-Off Colors",
+            "card_text": "Over 200 high-pigment professional shades. Easy self-leveling brush-on application with clean soak removal.",
+            "link_label": "Browse Color Library"
+          }
+        },
+        {
+          "type": "collection_card",
+          "settings": {
+            "icon_select": "shield",
+            "card_title": "Treatments & Essentials",
+            "card_text": "Our world-famous pH Bond, Foundation Base Gel, and Top It Off Sealer. Engineered to form an indestructible covalent seal.",
+            "link_label": "Optimize Retention"
+          }
+        },
+        {
+          "type": "collection_card",
+          "settings": {
+            "icon_select": "lightning",
+            "card_title": "LED Tech & Tools",
+            "card_text": "High-performance LED cure technology. Fully cures Gelish foundations in 5 seconds and color layers in 30 seconds.",
+            "link_label": "Discover Hardware"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

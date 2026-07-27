@@ -1,0 +1,771 @@
+{% schema %}
+{
+  "name": "Multi-Res Banner Carousel",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "banner_row",
+      "name": "Banner Row",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Responsive Banner Assets"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_desktop",
+          "label": "Desktop Banner Image",
+          "info": "Suggested size: 1000x1400px"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_mobile",
+          "label": "Mobile Image",
+          "info": "Suggested size: 800x400px (Screens under 767px)"
+        },
+        {
+          "type": "header",
+          "content": "Content & Collection Setup"
+        },
+        {
+          "type": "text",
+          "id": "banner_heading",
+          "label": "Banner Heading",
+          "default": "Featured Collection"
+        },
+        {
+          "type": "url",
+          "id": "banner_link",
+          "label": "Banner Link (Optional)"
+        },
+        {
+          "type": "collection",
+          "id": "product_collection",
+          "label": "Select Collection for Carousel"
+        },
+        {
+          "type": "range",
+          "id": "products_count",
+          "label": "Number of products to show",
+          "min": 4,
+          "max": 12,
+          "step": 1,
+          "default": 6
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Multi-Res Banner Carousel",
+      "blocks": [
+        { "type": "banner_row" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="multi-banner-container">
+  {% for block in section.blocks %}
+    {% assign collection = collections[block.settings.product_collection] %}
+    
+    <div class="banner-row" {{ block.shopify_attributes }}>
+      
+      <!-- LEFT SIDE: RESPONSIVE BANNER PICTURE LAYER -->
+      <div class="banner-sidebar">
+        {% if block.settings.banner_link != blank %}
+          <a href="{{ block.settings.banner_link }}" class="banner-image-wrapper">
+        {% else %}
+          <div class="banner-image-wrapper">
+        {% endif %}
+
+          {% if block.settings.banner_desktop != blank or block.settings.banner_mobile != blank %}
+            <picture class="responsive-picture">
+              {% if block.settings.banner_desktop != blank %}
+                <source media="(min-width: 768px)" srcset="{{ block.settings.banner_desktop | image_url: width: 1000 }}">
+              {% endif %}
+              
+              {% assign fallback_img = block.settings.banner_mobile | default: block.settings.banner_desktop %}
+              <img 
+                src="{{ fallback_img | image_url: width: 800 }}" 
+                alt="{{ fallback_img.alt | escape }}"
+                width="{{ fallback_img.width | default: 800 }}"
+                height="{{ fallback_img.height | default: 400 }}"
+                loading="lazy"
+                class="banner-img"
+              >
+            </picture>
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+          
+          {% if block.settings.banner_heading != blank %}
+            <div class="banner-overlay">
+              <h2>{{ block.settings.banner_heading }}</h2>
+            </div>
+          {% endif %}
+
+        {% if block.settings.banner_link != blank %}
+          </a>
+        {% else %}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- RIGHT SIDE: CAROUSEL WRAPPER -->
+      <div class="right-content-layout">
+        
+        <div class="carousel-wrapper">
+          <button type="button" class="carousel-nav-btn prev" aria-label="Previous products">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          
+          <div class="carousel-content">
+            <div class="product-carousel-track">
+              {% if collection != blank and collection.products.size > 0 %}
+                {% for product in collection.products limit: block.settings.products_count %}
+                  <div class="carousel-product-card" data-product-id="{{ product.id }}">
+                    <div class="product-card-inner">
+                      <a href="{{ product.url }}" class="product-card-link">
+                        <div class="product-image-wrapper">
+                          {% if product.featured_image != blank %}
+                            <img 
+                              src="{{ product.featured_image | image_url: width: 400 }}" 
+                              alt="{{ product.title | escape }}" 
+                              width="{{ product.featured_image.width }}"
+                              height="{{ product.featured_image.height }}"
+                              loading="lazy"
+                            >
+                          {% else %}
+                            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                          {% endif %}
+                        </div>
+                        {% comment %} <div class="product-info">
+                          <span class="product-title">{{ product.title }}</span>
+                          <span class="product-price">{{ product.price | money }}</span>
+                        </div>
+                      </a> {% endcomment %}
+
+                      <div class="product-info">
+                        <span class="product-title">{{ product.title }}</span>
+                        
+                        {% if customer %}
+                          <span class="product-price">{{ product.price | money }}</span>
+                        {% endif %}
+                      </div>
+                      </a>
+
+                      <!-- CLEAN INLINE ACTION WITH PARAMETER ATTRIBUTES -->
+                      {% comment %} <div class="product-card-action">
+                        <button
+                          type="button"
+                          class="atc-btn-submit custom-add-btn"
+                          {% if product.available %}
+                            onclick="addToCart(this, '{{ product.selected_or_first_available_variant.id }}', 1)"
+                          {% else %}
+                            disabled
+                          {% endif %}
+                          
+                        >
+                          <span class="btn-text">{% if product.available %}ADD TO CART{% else %}SOLD OUT{% endif %}</span>
+                          <span class="btn-spinner"></span>
+                        </button>
+                      </div> {% endcomment %}
+
+                      {% if customer %}
+                      <div class="product-card-action">
+                        <button
+                          type="button"
+                          class="atc-btn-submit custom-add-btn"
+                          {% if product.available %}
+                            onclick="addToCart(this, '{{ product.selected_or_first_available_variant.id }}', 1)"
+                          {% else %}
+                            disabled
+                          {% endif %}
+                        >
+                          <span class="btn-text">{% if product.available %}ADD TO CART{% else %}SOLD OUT{% endif %}</span>
+                          <span class="btn-spinner"></span>
+                        </button>
+                      </div>
+                    {% endif %}
+                    </div>
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% for i in (1..4) %}
+                  <div class="carousel-product-card">
+                    <div class="product-card-inner">
+                      <div class="product-image-wrapper">
+                        {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                      <div class="product-info">
+                        <span class="product-title">Gelish Sample Kit {{ i }}</span>
+                        <span class="product-price">$99.99</span>
+                      </div>
+                      <div class="product-card-action">
+                        <button type="button" class="atc-btn-submit custom-add-btn" onclick="addToCart(this, '123456', 1)">
+                          <span class="btn-text">ADD TO CART</span>
+                          <span class="btn-spinner"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+
+          <button type="button" class="carousel-nav-btn next" aria-label="Next products">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+
+        <div class="carousel-top-bar">
+          {% if collection != blank %}
+            <a href="{{ collection.url }}" class="carousel-see-all-link">
+              See All Products 
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          {% endif %}
+        </div>
+
+      </div>
+
+    </div>
+  {% endfor %}
+</div>
+
+<style>
+  .multi-banner-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+  }
+
+  .banner-row {
+    display: flex;
+    flex-direction: row;
+    gap: 34px;
+    align-items: center; 
+    justify-content: flex-start;
+  }
+
+  .banner-sidebar {
+    flex: 0 0 340px; 
+    width: 340px;
+    max-width: 340px;
+    position: relative;
+  }
+
+  .banner-image-wrapper {
+    position: relative;
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+  }
+
+  @media (min-width: 768px) {
+    .banner-image-wrapper {
+      aspect-ratio: 1000 / 1400;
+    }
+  }
+
+  .responsive-picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .banner-img {
+    width: 100%;
+    height: 100%; 
+    object-fit: contain; 
+    background-color: transparent;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  
+  .banner-image-wrapper:hover .banner-img {
+    transform: scale(1.02);
+  }
+
+  .banner-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.4));
+    padding: 24px;
+    color: #ffffff;
+    z-index: 2;
+  }
+
+  .banner-overlay h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  /* Right Layout & Top Bar */
+  .right-content-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .carousel-top-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+    padding-right: 4px;
+  }
+
+  .carousel-see-all-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: #673131;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .carousel-see-all-link:hover {
+    color: #a87979;
+    transform: translateX(2px);
+  }
+
+  /* Carousel Containers */
+  .carousel-wrapper {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .carousel-content {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 8px 4px 16px 4px; 
+    display: flex;
+    align-items: center;
+  }
+
+  .carousel-content::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-carousel-track {
+    display: flex;
+    gap: 20px;
+    flex-wrap: nowrap; 
+  }
+
+  /* Product Cards */
+  .carousel-product-card {
+    flex: 0 0 260px; 
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #efefef;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-card-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  .carousel-product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .product-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .product-image-wrapper {
+    aspect-ratio: 1 / 1;
+    background: #ffffff;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .product-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+  }
+
+  .product-info {
+    padding: 12px 14px 8px 14px;
+    border-top: 1px solid #f7f7f7;
+    background-color: #ffffff;
+  }
+
+  .product-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a1a;
+    line-height: 1.4;
+    display: block;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .product-price {
+    font-size: 14px;
+    color: #666666;
+    font-weight: 500;
+  }
+
+  /* ATC Interactive Button */
+  .product-card-action {
+    padding: 4px 14px 16px 14px;
+    background-color: #ffffff;
+  }
+
+  .atc-btn-submit {
+    width: 100%;
+    height: 44px;
+    background-color: #bf9292;
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .atc-btn-submit:hover {
+    background-color: #a87979;
+  }
+
+  .atc-btn-submit:disabled {
+    background-color: #e5e5e5;
+    color: #a8a8a8;
+    cursor: not-allowed;
+  }
+
+  /* Loading State Visual Elements */
+  .btn-spinner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    animation: spin 0.65s linear infinite;
+    position: absolute;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .atc-btn-submit.is-loading .btn-text {
+    opacity: 0;
+  }
+
+  .atc-btn-submit.is-loading .btn-spinner {
+    display: block;
+  }
+
+  /* Desktop Nav Arrows */
+  .carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    color: #121212;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    transition: background 0.2s, opacity 0.2s;
+    opacity: 0; 
+    pointer-events: none;
+  }
+
+  .carousel-wrapper:hover .carousel-nav-btn {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .carousel-nav-btn:hover {
+    background: #fcfcfc;
+  }
+
+  .carousel-nav-btn.prev { left: 4px; }
+  .carousel-nav-btn.next { right: 4px; }
+
+  /* Mobile Responsive Framework */
+  @media (max-width: 767px) {
+    .multi-banner-container {
+      gap: 40px;
+      padding: 20px 10px;
+    }
+    
+    .banner-row {
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    
+    .banner-sidebar {
+      width: 100%;
+      min-width: 100%;
+      max-width: 100%;
+      flex: none;
+    }
+    
+    .banner-image-wrapper {
+      height: auto;
+      aspect-ratio: 800 / 400;
+    }
+
+    .right-content-layout {
+      width: 100%;
+    }
+
+    .carousel-top-bar {
+      margin-bottom: 8px;
+      padding-left: 4px;
+    }
+    
+    .carousel-content {
+      padding: 4px 4px 12px 4px;
+      overflow-x: auto; 
+      scroll-snap-type: x mandatory; 
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .product-carousel-track {
+      gap: 14px;
+      padding-right: 16px;
+    }
+
+    .carousel-product-card {
+      flex: 0 0 165px; 
+      border-radius: 8px;
+      scroll-snap-align: start;
+    }
+    
+    .product-image-wrapper {
+      padding: 10px;
+    }
+    
+    .product-info {
+      padding: 8px 10px 4px 10px;
+    }
+    
+    .product-card-action {
+      padding: 4px 10px 12px 10px;
+    }
+    
+    .atc-btn-submit {
+      height: 36px;
+      font-size: 11px;
+    }
+    
+    .product-title {
+      font-size: 13px;
+    }
+    
+    .product-price {
+      font-size: 13px;
+    }
+    
+    .carousel-nav-btn {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+  // --- SYSTEMATIC FORCED PERSISTENCE OVERRIDES ---
+  function enforceCartCount(count) {
+    const bubbleSelectors = [
+      '.cart-count-bubble', 
+      '#CartCount', 
+      '.header__cart-count', 
+      '#cart-icon-bubble',
+      '.cart-link__bubble',
+      '.header__icon--cart span'
+    ];
+
+    bubbleSelectors.forEach(selector => {
+      document.querySelectorAll(selector).forEach(bubble => {
+        if (!bubble) return;
+
+        let target = bubble.querySelector('span') || bubble;
+        target.textContent = count;
+
+        // Force elements to stay visible by stripping away standard theme hidden layouts
+        bubble.classList.remove('hidden', 'is-empty');
+        bubble.style.setProperty('display', 'flex', 'important');
+        bubble.style.setProperty('opacity', '1', 'important');
+        bubble.style.setProperty('visibility', 'visible', 'important');
+      });
+    });
+  }
+
+  // --- HARD RELOAD WITH SCROLL RETENTION ---
+  async function addToCart(button, variantId, qty = 1) {
+    if (!variantId) return;
+
+    button.classList.add('is-loading');
+    button.disabled = true;
+
+    try {
+      const addResponse = await fetch(window.Shopify.routes.root + 'cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          quantity: qty,
+          id: variantId,
+        }),
+      });
+
+      if (!addResponse.ok) throw new Error('Failed to add item to cart');
+      const cartObj = await addResponse.json();
+
+      // Fetch absolute updated database snapshot total before processing reload
+      const finalCartRes = await fetch(window.Shopify.routes.root + 'cart.js');
+      const finalCart = await finalCartRes.json();
+
+      // Cache metrics safely across window re-rendering boundaries
+      sessionStorage.setItem('scrollPositionBeforeATC', window.scrollY);
+      sessionStorage.setItem('forcedCartCount', finalCart.item_count);
+      sessionStorage.setItem('openDrawerOnLoad', 'true');
+
+      window.location.reload();
+
+    } catch (error) {
+      console.error('Error adding item to cart:', error);
+      button.classList.remove('is-loading');
+      button.disabled = false;
+    }
+  }
+
+  // --- ACTIONS EXECUTED ON WINDOW RENDER ---
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Immediately return user to their previous scroll position
+    const savedScroll = sessionStorage.getItem('scrollPositionBeforeATC');
+    if (savedScroll !== null) {
+      window.scrollTo(0, parseInt(savedScroll, 10));
+      sessionStorage.removeItem('scrollPositionBeforeATC'); 
+    }
+
+    // 2. Poll for the cart count to overwrite theme timing conflicts
+    const targetCount = sessionStorage.getItem('forcedCartCount');
+    if (targetCount !== null) {
+      const count = parseInt(targetCount, 10);
+      
+      if (count > 0) {
+        enforceCartCount(count);
+
+        // Run an interval loop for 3 seconds to check for late-loading scripts
+        let counter = 0;
+        const persistenceInterval = setInterval(() => {
+          enforceCartCount(count);
+          counter++;
+          if (counter > 30) {
+            clearInterval(persistenceInterval);
+            sessionStorage.removeItem('forcedCartCount'); // Clear storage once settled
+          }
+        }, 100);
+      }
+    }
+
+    // 3. Trigger theme drawer menu display layout adjustments
+    const shouldOpenDrawer = sessionStorage.getItem('openDrawerOnLoad');
+    if (shouldOpenDrawer === 'true') {
+      sessionStorage.removeItem('openDrawerOnLoad'); 
+      
+      setTimeout(() => {
+        const activeCartDrawer = document.querySelector('cart-drawer') || document.querySelector('cart-notification') || document.querySelector('#CartDrawer');
+        if (activeCartDrawer) {
+          if (typeof activeCartDrawer.open === 'function') {
+            activeCartDrawer.open();
+          } else {
+            activeCartDrawer.classList.add('active', 'animate', 'active-drawer');
+          }
+        }
+      }, 350); 
+    }
+
+    // --- CAROUSEL TRACK INITIALIZATION ---
+    const initializeCarousels = () => {
+      const wrappers = document.querySelectorAll('.carousel-wrapper');
+      
+      wrappers.forEach(wrapper => {
+        const content = wrapper.querySelector('.carousel-content');
+        const prevBtn = wrapper.querySelector('.carousel-nav-btn.prev');
+        const nextBtn = wrapper.querySelector('.carousel-nav-btn.next');
+        
+        if (!content || !prevBtn || !nextBtn) return;
+
+        const getScrollAmount = () => {
+          const card = content.querySelector('.carousel-product-card');
+          return card ? card.offsetWidth + 20 : 280; 
+        };
+
+        nextBtn.addEventListener('click', () => {
+          content.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+        });
+
+        prevBtn.addEventListener('click', () => {
+          content.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+        });
+      });
+    };
+
+    initializeCarousels();
+    document.addEventListener('shopify:section:load', initializeCarousels);
+  });
+</script>

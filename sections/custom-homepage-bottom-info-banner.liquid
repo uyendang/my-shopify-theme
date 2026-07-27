@@ -1,0 +1,331 @@
+{%- style -%}
+  .gelish-science-outer-{{ section.id }} {
+    width: 100%;
+    background-color: {{ section.settings.bg_color }};
+    display: block;
+  }
+
+  .gelish-science-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 100px 4%;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    text-align: center;
+  }
+
+  .gelish-science-subtitle {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: {{ section.settings.accent_color }};
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .gelish-science-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    color: {{ section.settings.text_light }};
+    margin: 0 0 24px 0;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  .gelish-science-desc {
+    font-size: 16px;
+    line-height: 1.7;
+    color: {{ section.settings.text_muted }};
+    max-width: 720px;
+    margin: 0 auto 48px auto;
+    font-weight: 300;
+  }
+
+  .gelish-formula-card {
+    background-color: {{ section.settings.card_bg_color }};
+    border: 1px solid {{ section.settings.card_border_color }};
+    border-radius: 28px;
+    padding: 36px 40px;
+    max-width: 820px;
+    margin: 0 auto 36px auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .gelish-formula-subtitle {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: {{ section.settings.accent_color }};
+    font-weight: 700;
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  /* Responsive equation wrapper preventing layout breaks */
+  .gelish-formula-scroll-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .gelish-formula-row {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: {{ section.settings.text_light }};
+    white-space: nowrap;
+    padding: 10px 0;
+    min-width: 100%;
+  }
+
+  .math-term {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+  }
+
+  .math-term sub {
+    font-size: 11px;
+    vertical-align: sub;
+    margin-left: 1px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .math-operator {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: {{ section.settings.accent_color }};
+    font-weight: 400;
+    margin: 0 4px;
+  }
+
+  /* Custom integration styling with bounds limit */
+  .math-integral-wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 0.9;
+    vertical-align: middle;
+    margin: 0 4px;
+    position: relative;
+    top: -2px;
+  }
+
+  .math-integral-limit-top {
+    font-size: 11px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    height: 12px;
+  }
+
+  .math-integral-symbol {
+    font-size: 38px;
+    font-weight: 300;
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+    margin: -4px 0;
+  }
+
+  .math-integral-limit-bottom {
+    font-size: 11px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    height: 12px;
+  }
+
+  .math-braces {
+    font-size: 26px;
+    font-weight: 300;
+    color: {{ section.settings.text_muted }};
+  }
+
+  .math-note {
+    font-size: 13px;
+    font-style: italic;
+    color: {{ section.settings.text_muted }};
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  @media screen and (max-width: 768px) {
+    .gelish-science-container {
+      padding: 60px 20px;
+    }
+    .gelish-science-title {
+      font-size: 32px;
+    }
+    .gelish-science-desc {
+      font-size: 14px;
+      margin-bottom: 36px;
+    }
+    .gelish-formula-card {
+      padding: 24px 20px;
+      border-radius: 20px;
+    }
+    .gelish-formula-row {
+      font-size: 16px;
+    }
+    .math-integral-symbol {
+      font-size: 30px;
+    }
+    .math-term {
+      font-size: 16px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="gelish-science-outer-{{ section.id }}">
+  <section class="gelish-science-container">
+    
+    {% if section.settings.subtitle != blank %}
+      <span class="gelish-science-subtitle">{{ section.settings.subtitle }}</span>
+    {% endif %}
+    
+    {% if section.settings.title != blank %}
+      <h2 class="gelish-science-title">{{ section.settings.title }}</h2>
+    {% endif %}
+    
+    {% if section.settings.description != blank %}
+      <p class="gelish-science-desc">{{ section.settings.description }}</p>
+    {% endif %}
+
+    <!-- Science Formulation Card Layout Wrapper -->
+    <div class="gelish-formula-card">
+      {% if section.settings.formula_subtitle != blank %}
+        <span class="gelish-formula-subtitle">{{ section.settings.formula_subtitle }}</span>
+      {% endif %}
+
+      <div class="gelish-formula-scroll-wrapper">
+        <div class="gelish-formula-row">
+          
+          <!-- CrosslinkDensity(D) -->
+          <span class="math-term">CrosslinkDensity<sub>(D)</sub></span>
+          
+          <!-- Equals Operator -->
+          <span class="math-operator">=</span>
+          
+          <!-- Dynamic Integral with Limits -->
+          <div class="math-integral-wrapper">
+            <span class="math-integral-limit-top">t</span>
+            <span class="math-integral-symbol">∫</span>
+            <span class="math-integral-limit-bottom">0</span>
+          </div>
+
+          <!-- Oligomer(active) -->
+          <span class="math-term">Oligomer<sub>(active)</sub></span>
+          
+          <!-- Multiplication Operator -->
+          <span class="math-operator">&times;</span>
+          
+          <!-- Intensity_LED(λ) -->
+          <span class="math-term">Intensity<sub>LED</sub>(λ)</span>
+          
+          <!-- dt Operator -->
+          <span class="math-term" style="margin-left: 4px;">d<em>t</em></span>
+          
+          <!-- Approximation Symbol -->
+          <span class="math-operator">&approx;</span>
+          
+          <!-- 99.8% Polymerized Highlight -->
+          <span class="math-term" style="font-weight: 700; color: {{ section.settings.text_light }};">99.8% Polymerized</span>
+          
+        </div>
+      </div>
+    </div>
+
+    {% if section.settings.formula_note != blank %}
+      <p class="math-note">{{ section.settings.formula_note }}</p>
+    {% endif %}
+
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Gelish Science Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Theme Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background",
+      "default": "#251118"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background",
+      "default": "rgba(255, 255, 255, 0.02)"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card Border",
+      "default": "rgba(200, 142, 150, 0.15)"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Rose Color",
+      "default": "#C88E96"
+    },
+    {
+      "type": "color",
+      "id": "text_light",
+      "label": "Primary Text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_muted",
+      "label": "Muted Text",
+      "default": "#F7EDE9"
+    },
+    {
+      "type": "header",
+      "content": "Content Configuration"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "FORMULA & TECHNOLOGY"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "The Science Behind the 21-Day Wear"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Section Description",
+      "default": "Gelish's patented formulation utilizes custom length photo-reactive oligomers interacting with precise 395nm spectrum solid-state LED emitters to trigger clean instant cross-linking."
+    },
+    {
+      "type": "text",
+      "id": "formula_subtitle",
+      "label": "Formula Subtitle",
+      "default": "CURING CROSSLINK DENSITY FORMULATION"
+    },
+    {
+      "type": "textarea",
+      "id": "formula_note",
+      "label": "Bottom Footer Note",
+      "default": "Note: Complete conversion requires continuous exposure to 18G LED light engines for exactly 30 seconds per color layer."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Homepage Bottom Info Banner"
+    }
+  ]
+}
+{% endschema %}

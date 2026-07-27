@@ -1,0 +1,357 @@
+<div class="gelish-prod-outer-{{ section.id }}">
+  <section class="gelish-prod-container">
+    
+    <div class="gelish-prod-header">
+      <div class="gelish-prod-title-area">
+        {% if section.settings.subtitle != blank %}
+          <span class="gelish-prod-subtitle">{{ section.settings.subtitle }}</span>
+        {% endif %}
+        {% if section.settings.title != blank %}
+          <h2 class="gelish-prod-main-title">{{ section.settings.title }}</h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <p class="gelish-prod-desc">{{ section.settings.description }}</p>
+        {% endif %}
+      </div>
+      
+      {% if section.settings.collection.url != blank %}
+        <a href="{{ section.settings.collection.url }}" class="gelish-view-all-link">
+          {{ section.settings.view_all_text }} &rarr;
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="gelish-product-grid">
+      {%- assign selected_collection = section.settings.collection -%}
+      {%- if selected_collection != blank and selected_collection.products.size > 0 -%}
+        
+        {%- for product in selected_collection.products limit: 4 -%}
+          <div class="gelish-product-card">
+            
+            <!-- Badges dynamically assigned via Shopify product tags -->
+            <div class="gelish-badge-container">
+              {%- if product.tags contains 'Best Seller' or product.tags contains 'best-seller' -%}
+                <span class="gelish-tag-badge gelish-badge-dark">Best Seller</span>
+              {%- elsif product.tags contains 'Pro Device' or product.tags contains 'pro-device' -%}
+                <span class="gelish-tag-badge gelish-badge-accent">Pro Device</span>
+              {%- endif -%}
+            </div>
+
+            <!-- This anchor links the image and title directly to the product details page -->
+            <a href="{{ product.url }}" class="gelish-product-card-link">
+              <div class="gelish-img-canvas">
+                {% if product.featured_media != blank %}
+                  <img 
+                    src="{{ product.featured_media | image_url: width: 500 }}" 
+                    alt="{{ product.featured_media.alt | escape }}"
+                    width="{{ product.featured_media.width }}"
+                    height="{{ product.featured_media.height }}"
+                    loading="lazy"
+                  >
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag }}
+                {% endif %}
+              </div>
+
+              <h3 class="gelish-card-prod-title">{{ product.title }}</h3>
+            </a>
+
+            <div class="gelish-card-footer">
+              <span class="gelish-card-price">{{ product.price | money }}</span>
+              
+              <!-- Cart Add Form Form Wrapper -->
+              <form method="post" action="/cart/add" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
+                <button type="submit" class="gelish-quick-buy-btn">ADD TO CART</button>
+              </form>
+            </div>
+
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+  </section>
+</div>
+
+{%- style -%}
+  .gelish-prod-outer-{{ section.id }} {
+    width: 100%;
+    background-color: {{ section.settings.section_bg }};
+    display: block;
+  }
+
+  .gelish-prod-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 80px 4%;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .gelish-prod-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+  }
+
+  .gelish-prod-title-area {
+    max-width: 600px;
+  }
+
+  .gelish-prod-subtitle {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: {{ section.settings.accent_color }};
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .gelish-prod-main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    color: {{ section.settings.text_dark }};
+    margin: 0 0 16px 0;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .gelish-prod-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #666666;
+    font-weight: 300;
+    margin: 0;
+  }
+
+  .gelish-view-all-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: {{ section.settings.accent_color }};
+    text-decoration: none;
+    border-bottom: 1px solid {{ section.settings.accent_color | color_modify: 'alpha', 0.3 }};
+    padding-bottom: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.2s ease;
+    white-space: nowrap;
+    margin-bottom: 6px;
+  }
+
+  .gelish-view-all-link:hover {
+    gap: 10px;
+  }
+
+  /* 4-Column Product Grid with enforced breathing space */
+  .gelish-product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .gelish-product-card {
+    background-color: {{ section.settings.card_bg }};
+    border-radius: 24px;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid {{ section.settings.card_border }};
+    transition: transform 0.3s ease;
+  }
+
+  .gelish-product-card:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Clean styles to keep links from underlining or changing color */
+  .gelish-product-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  /* Badges positioning */
+  .gelish-badge-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 2;
+  }
+
+  .gelish-tag-badge {
+    font-size: 9px;
+    font-weight: 800;
+    color: #ffffff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .gelish-badge-dark { background-color: #231317; }
+  .gelish-badge-accent { background-color: #FE6B6B; }
+
+  /* Image canvas area */
+  .gelish-img-canvas {
+    background-color: #ffffff;
+    border-radius: 16px;
+    width: 100%;
+    aspect-ratio: 1.1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 20px;
+    padding: 15px;
+  }
+
+  .gelish-img-canvas img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .gelish-card-prod-title {
+    font-family: 'Plus Jakarta Sans', serif;
+    font-size: 18px;
+    color: {{ section.settings.text_dark }};
+    margin: 0 0 14px 0;
+    font-weight: 400;
+    padding-bottom: 15px;
+  }
+
+  /* Price and Action row */
+  .gelish-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+  }
+
+  .gelish-card-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: {{ section.settings.text_dark }};
+  }
+
+  .gelish-quick-buy-btn {
+    background-color: {{ section.settings.btn_bg }};
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .gelish-quick-buy-btn:hover {
+    opacity: 0.9;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .gelish-product-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 650px) {
+    .gelish-prod-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .gelish-product-grid {
+      grid-template-columns: 1fr;
+      margin-top: 20px;
+    }
+    .gelish-prod-main-title {
+      font-size: 32px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Custom Home Featured Prod",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Choose Collection"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card Background",
+      "default": "#FAF6F3"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Card Border",
+      "default": "#F2E6E1"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Text Color",
+      "default": "#B58282"
+    },
+    {
+      "type": "color",
+      "id": "text_dark",
+      "label": "Dark Text Color",
+      "default": "#231317"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button Background Color",
+      "default": "#BF9292"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "CUSTOMER FAVORITES"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Top Performing Care & Essentials"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Section Description",
+      "default": "The ultimate prep foundations, damage-free strengtheners, and high-gloss top coats designed to lock in your favorite color."
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View All Link Label",
+      "default": "View All Essentials"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Homepage Featured Prod"
+    }
+  ]
+}
+{% endschema %}
