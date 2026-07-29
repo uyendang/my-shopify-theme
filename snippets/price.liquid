@@ -1,3 +1,14 @@
+{% if customer %}
+  {%- comment -%} ALL ORIGINAL PRICE CODE GOES HERE {%- endcomment -%}
+  <div class="price">
+    {%- if compare_at_price -%} ... {%- endif -%}
+    <span>{{ price | money }}</span>
+  </div>
+{% else %}
+  <a href="{{ routes.account_login_url }}" class="button button--secondary">
+    Log in to see price
+  </a>
+{% endif %}
 {%- comment %}BSS Login{% endcomment -%}{% capture bss_lock_check %} {% render 'bss-lock-condition', scope: 'subject', subject: product_resource, subject_parent: product_resource, variable: 'price', get_content: true, bss_lock_action: 'bss_hide_price' %} {% endcapture %} {% if bss_lock_check contains 'bss-lock-element' %} <div ref="priceContainer">{{ bss_lock_check }}</div> {% break %} {% endif %}{%- comment %}BSS-Login{% endcomment -%}
 {%- doc -%}
   This snippet is used to render a product card.
