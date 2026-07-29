@@ -1,14 +1,16 @@
-{% if customer %}
-  {%- comment -%} Show Add to Cart Button {%- endcomment -%}
-  <button type="submit" name="add" class="product-form__submit button">
-    Add to cart
-  </button>
-{% else %}
-  {%- comment -%} Show Login CTA for guests {%- endcomment -%}
-  <div class="login-to-view-price">
-    <p><a href="{{ routes.account_login_url }}">Log in</a> or <a href="{{ routes.account_register_url }}">Register</a> to view pricing and purchase.</p>
-  </div>
-{% endif %}
+{% unless customer %}
+  <style>
+    /* Hide prices and Add to Cart across all pages for guests */
+    .price,
+    .product__price,
+    .card__price,
+    .cart-drawer__price,
+    .product-form__submit,
+    .quick-add {
+      display: none !important;
+    }
+  </style>
+{% endunless %}
 {%- comment %}BSS Login{% endcomment -%}{% capture bss_lock_check %} {% render 'bss-lock-condition', scope: 'subject', subject: product_resource, subject_parent: product_resource, variable: 'price', get_content: true, bss_lock_action: 'bss_hide_price' %} {% endcapture %} {% if bss_lock_check contains 'bss-lock-element' %} <div ref="priceContainer">{{ bss_lock_check }}</div> {% break %} {% endif %}{%- comment %}BSS-Login{% endcomment -%}
 {%- doc -%}
   This snippet is used to render a product card.
