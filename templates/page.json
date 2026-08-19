@@ -69,10 +69,19 @@
             "category": "Builder Gel",
             "video_url": "https://youtu.be/YuDm0wNrwo4"
           }
+        },
+        "video_item_kQgVAH": {
+          "type": "video_item",
+          "settings": {
+            "title": "Brush On Builder Gel - Removal",
+            "category": "Builder Gel",
+            "video_url": "https://www.youtube.com/watch?v=cB27rlC0Qv4"
+          }
         }
       },
       "block_order": [
-        "video_item_qeAJHp"
+        "video_item_qeAJHp",
+        "video_item_kQgVAH"
       ],
       "name": "Full Video Gallery",
       "settings": {
