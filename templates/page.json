@@ -62,6 +62,14 @@
     "custom_page_video_gallery_aLJPzy": {
       "type": "custom-page-video-gallery",
       "blocks": {
+        "video_item_Nz4Dj6": {
+          "type": "video_item",
+          "settings": {
+            "title": "Gelish - Gel Polish Removal",
+            "category": "Gel Polish",
+            "video_url": "https://www.youtube.com/watch?v=AW4ibS5TJdc"
+          }
+        },
         "video_item_qeAJHp": {
           "type": "video_item",
           "settings": {
@@ -144,6 +152,7 @@
         }
       },
       "block_order": [
+        "video_item_Nz4Dj6",
         "video_item_qeAJHp",
         "video_item_kQgVAH",
         "video_item_nwxFJt",
