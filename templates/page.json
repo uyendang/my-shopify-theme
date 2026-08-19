@@ -150,6 +150,14 @@
             "video_url": "https://www.youtube.com/watch?v=40zjGYdRZ8Y"
           }
         },
+        "video_item_TV8HD4": {
+          "type": "video_item",
+          "settings": {
+            "title": "Dip N Brush French Tip Application Using Monomer",
+            "category": "Dip Powder",
+            "video_url": "https://www.youtube.com/watch?v=msJOo6JfxOM"
+          }
+        },
         "video_item_JeXfR3": {
           "type": "video_item",
           "settings": {
@@ -171,6 +179,7 @@
         "video_item_Fjymf3",
         "video_item_Xy6rKw",
         "video_item_aVcLhP",
+        "video_item_TV8HD4",
         "video_item_JeXfR3"
       ],
       "name": "Full Video Gallery",
