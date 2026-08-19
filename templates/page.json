@@ -62,12 +62,12 @@
     "custom_page_video_gallery_aLJPzy": {
       "type": "custom-page-video-gallery",
       "blocks": {
-        "video_item_qMmrKa": {
+        "video_item_wpKTPk": {
           "type": "video_item",
           "settings": {
-            "title": "Soft Gel Application",
-            "category": "Soft Gel Tips",
-            "video_url": "https://www.youtube.com/watch?v=WFdebfsOatQ"
+            "title": "How to Apply Gel Polish",
+            "category": "Gel Polish",
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
           }
         },
         "video_item_Nz4Dj6": {
@@ -116,6 +116,38 @@
             "title": "Foundation Flex Rubber Base Gel Application",
             "category": "Foundation Flex",
             "video_url": "https://www.youtube.com/watch?v=EzQq2TnchAw"
+          }
+        },
+        "video_item_qMmrKa": {
+          "type": "video_item",
+          "settings": {
+            "title": "Soft Gel Application",
+            "category": "Soft Gel Tips",
+            "video_url": "https://www.youtube.com/watch?v=WFdebfsOatQ"
+          }
+        },
+        "video_item_UwNP6U": {
+          "type": "video_item",
+          "settings": {
+            "title": "Soft Gel Removal",
+            "category": "Soft Gel Tips",
+            "video_url": "https://www.youtube.com/watch?v=PWDr54_inCg"
+          }
+        },
+        "video_item_MCFkQC": {
+          "type": "video_item",
+          "settings": {
+            "title": "Soft Gel Step By Step",
+            "category": "Soft Gel Tips",
+            "video_url": "https://www.youtube.com/watch?v=ongX0B4Lzx0"
+          }
+        },
+        "video_item_JeXfR3": {
+          "type": "video_item",
+          "settings": {
+            "title": "Soft Gel Adhesive In A Tube",
+            "category": "Soft Gel Tips",
+            "video_url": "https://www.youtube.com/watch?v=zfJx4nlgiNI"
           }
         },
         "video_item_fzXmhH": {
@@ -221,32 +253,20 @@
             "category": "Dip Powder",
             "video_url": "https://www.youtube.com/watch?v=msJOo6JfxOM"
           }
-        },
-        "video_item_MCFkQC": {
-          "type": "video_item",
-          "settings": {
-            "title": "Soft Gel Step By Step",
-            "category": "Soft Gel Tips",
-            "video_url": "https://www.youtube.com/watch?v=ongX0B4Lzx0"
-          }
-        },
-        "video_item_JeXfR3": {
-          "type": "video_item",
-          "settings": {
-            "title": "Soft Gel Adhesive In A Tube",
-            "category": "Soft Gel Tips",
-            "video_url": "https://www.youtube.com/watch?v=zfJx4nlgiNI"
-          }
         }
       },
       "block_order": [
-        "video_item_qMmrKa",
+        "video_item_wpKTPk",
         "video_item_Nz4Dj6",
         "video_item_VLhBXj",
         "video_item_qeAJHp",
         "video_item_kQgVAH",
         "video_item_nwxFJt",
         "video_item_G3N6kb",
+        "video_item_qMmrKa",
+        "video_item_UwNP6U",
+        "video_item_MCFkQC",
+        "video_item_JeXfR3",
         "video_item_fzXmhH",
         "video_item_MarGgf",
         "video_item_aGDUVn",
@@ -259,9 +279,7 @@
         "video_item_j6nGTQ",
         "video_item_Xy6rKw",
         "video_item_aVcLhP",
-        "video_item_TV8HD4",
-        "video_item_MCFkQC",
-        "video_item_JeXfR3"
+        "video_item_TV8HD4"
       ],
       "name": "Full Video Gallery",
       "settings": {
