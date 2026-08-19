@@ -84,12 +84,19 @@
       {% endfor %}
 
       {% if cat_video_count > 0 %}
-        <div class="category-row" data-count="{{ cat_video_count }}">
+        <div class="category-row">
           <div class="category-header">
             <h2 class="category-title">{{ cat }} Tutorials</h2>
           </div>
 
           <div class="category-slider-wrapper">
+            {% comment %} Desktop-only arrows centered directly down inside the video section {% endcomment %}
+            {% if cat_video_count > 3 %}
+              <button class="slider-btn prev-btn desktop-only-btn" aria-label="Previous videos" data-dir="prev">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+            {% endif %}
+
             <div class="category-slider">
               {% for block in section.blocks %}
                 {% if block.settings.category == cat %}
@@ -131,16 +138,10 @@
               {% endfor %}
             </div>
 
-            {% comment %} Arrow navigation buttons positioned down/beside the slider {% endcomment %}
             {% if cat_video_count > 3 %}
-              <div class="slider-nav-btns desktop-only-nav">
-                <button class="slider-btn prev-btn" aria-label="Previous videos" data-dir="prev">
-                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M15 18l-6-6 6-6"/></svg>
-                </button>
-                <button class="slider-btn next-btn" aria-label="Next videos" data-dir="next">
-                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M9 18l6-6-6-6"/></svg>
-                </button>
-              </div>
+              <button class="slider-btn next-btn desktop-only-btn" aria-label="Next videos" data-dir="next">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
             {% endif %}
           </div>
         </div>
@@ -189,44 +190,48 @@
     margin: 0;
   }
 
-  /* Slider Wrapper & Down Navigation Layout */
+  /* Slider & Desktop Arrow Container */
   .category-slider-wrapper {
     position: relative;
   }
 
-  /* Navigation Buttons Style (Desktop Only) */
-  .slider-nav-btns {
-    display: none; /* Hidden on mobile/tablet */
+  /* Completely Hide Arrow Buttons on Mobile & Tablet */
+  .desktop-only-btn {
+    display: none !important;
   }
 
+  /* Show Arrows Vertically Centered Down in Video Section on Big Desktop Screens Only */
   @media screen and (min-width: 1025px) {
-    .slider-nav-btns.desktop-only-nav {
-      display: flex;
-      gap: 8px;
+    .desktop-only-btn {
+      display: flex !important;
       position: absolute;
-      top: -50px; /* Puts them neatly aligned with the header line on the right */
-      right: 0;
+      top: 45%;
+      transform: translateY(-50%);
+      z-index: 5;
+      background: #ffffff;
+      border: 1px solid #EAE0DD;
+      color: #5A3D31;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-  }
-
-  .slider-btn {
-    background: #ffffff;
-    border: 1px solid #EAE0DD;
-    color: #5A3D31;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-  }
-  .slider-btn:hover {
-    background-color: #B38487;
-    border-color: #B38487;
-    color: #ffffff;
+    .desktop-only-btn:hover {
+      background-color: #B38487;
+      border-color: #B38487;
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    .desktop-only-btn.prev-btn {
+      left: -21px; /* Floating slightly outside on the left edge */
+    }
+    .desktop-only-btn.next-btn {
+      right: -21px; /* Floating slightly outside on the right edge */
+    }
   }
 
   .category-slider {
@@ -354,12 +359,12 @@
       });
     });
 
-    // 2. Handle Arrow Navigation Clicks
+    // 2. Handle Desktop Arrow Navigation Clicks
     var navBtns = document.querySelectorAll('.slider-btn');
     navBtns.forEach(function(btn) {
       btn.addEventListener('click', function() {
-        var row = this.closest('.category-row');
-        var slider = row.querySelector('.category-slider');
+        var wrapper = this.closest('.category-slider-wrapper');
+        var slider = wrapper.querySelector('.category-slider');
         var dir = this.getAttribute('data-dir');
         var scrollAmount = 340; // Card width (320px) + Gap (20px)
 
