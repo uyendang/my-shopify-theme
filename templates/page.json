@@ -62,12 +62,28 @@
     "custom_page_video_gallery_aLJPzy": {
       "type": "custom-page-video-gallery",
       "blocks": {
-        "video_item_JeXfR3": {
+        "video_item_qeAJHp": {
           "type": "video_item",
           "settings": {
-            "title": "Soft Gel Adhesive In A Tube",
-            "category": "Soft Gel Tips",
-            "video_url": "https://www.youtube.com/watch?v=zfJx4nlgiNI"
+            "title": "Brush On Builder Gel - Natural Nail Application",
+            "category": "Builder Gel",
+            "video_url": "https://youtu.be/YuDm0wNrwo4"
+          }
+        },
+        "video_item_kQgVAH": {
+          "type": "video_item",
+          "settings": {
+            "title": "Brush On Builder Gel - Removal",
+            "category": "Builder Gel",
+            "video_url": "https://www.youtube.com/watch?v=cB27rlC0Qv4"
+          }
+        },
+        "video_item_nwxFJt": {
+          "type": "video_item",
+          "settings": {
+            "title": "Brush On Builder Gel - Creating an Extension",
+            "category": "Builder Gel",
+            "video_url": "https://www.youtube.com/watch?v=lVzlD2eTYuU"
           }
         },
         "video_item_fzXmhH": {
@@ -94,39 +110,50 @@
             "video_url": "https://www.youtube.com/watch?v=H7w7COS5PvM"
           }
         },
-        "video_item_qeAJHp": {
+        "video_item_Fjymf3": {
           "type": "video_item",
           "settings": {
-            "title": "Brush On Builder Gel - Natural Nail Application",
-            "category": "Builder Gel",
-            "video_url": "https://youtu.be/YuDm0wNrwo4"
+            "title": "Xpress Dip French Tip Step By Step",
+            "category": "Dip Powder",
+            "video_url": "https://www.youtube.com/watch?v=8z3Z1jpfwIs"
           }
         },
-        "video_item_kQgVAH": {
+        "video_item_Xy6rKw": {
           "type": "video_item",
           "settings": {
-            "title": "Brush On Builder Gel - Removal",
-            "category": "Builder Gel",
-            "video_url": "https://www.youtube.com/watch?v=cB27rlC0Qv4"
+            "title": "Xpress Dip Color Application Step By Step",
+            "category": "Dip Powder",
+            "video_url": "https://www.youtube.com/watch?v=j8MaSMfc6cw"
           }
         },
-        "video_item_nwxFJt": {
+        "video_item_aVcLhP": {
           "type": "video_item",
           "settings": {
-            "title": "Brush On Builder Gel - Creating an Extension",
-            "category": "Builder Gel",
-            "video_url": "https://www.youtube.com/watch?v=lVzlD2eTYuU"
+            "title": "Dip N Brush Color Application With Monomer",
+            "category": "Dip Powder",
+            "video_url": "https://www.youtube.com/watch?v=40zjGYdRZ8Y"
+          }
+        },
+        "video_item_JeXfR3": {
+          "type": "video_item",
+          "settings": {
+            "title": "Soft Gel Adhesive In A Tube",
+            "category": "Soft Gel Tips",
+            "video_url": "https://www.youtube.com/watch?v=zfJx4nlgiNI"
           }
         }
       },
       "block_order": [
-        "video_item_JeXfR3",
+        "video_item_qeAJHp",
+        "video_item_kQgVAH",
+        "video_item_nwxFJt",
         "video_item_fzXmhH",
         "video_item_MarGgf",
         "video_item_aGDUVn",
-        "video_item_qeAJHp",
-        "video_item_kQgVAH",
-        "video_item_nwxFJt"
+        "video_item_Fjymf3",
+        "video_item_Xy6rKw",
+        "video_item_aVcLhP",
+        "video_item_JeXfR3"
       ],
       "name": "Full Video Gallery",
       "settings": {
