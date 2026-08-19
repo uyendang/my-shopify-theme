@@ -84,60 +84,64 @@
       {% endfor %}
 
       {% if cat_video_count > 0 %}
-        <div class="category-row">
+        <div class="category-row" data-count="{{ cat_video_count }}">
           <div class="category-header">
             <h2 class="category-title">{{ cat }} Tutorials</h2>
-            
-            {% comment %} Arrow buttons wrapper with conditional visibility {% endcomment %}
-            <div class="slider-nav-btns {% if cat_video_count <= 1 %}hide-mobile-up{% elsif cat_video_count <= 2 %}hide-tablet-up{% elsif cat_video_count <= 3 %}hide-desktop-only{% endif %}">
-              <button class="slider-btn prev-btn" aria-label="Previous videos" data-dir="prev">
-                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M15 18l-6-6 6-6"/></svg>
-              </button>
-              <button class="slider-btn next-btn" aria-label="Next videos" data-dir="next">
-                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M9 18l6-6-6-6"/></svg>
-              </button>
-            </div>
           </div>
 
-          <div class="category-slider">
-            {% for block in section.blocks %}
-              {% if block.settings.category == cat %}
-                <div class="full-gallery-card" {{ block.shopify_attributes }}>
-                  <div class="full-gallery-video-wrapper">
-                    {% if block.settings.video_url.type == 'youtube' %}
-                      {% comment %} Lazy facade for YouTube using HQ thumbnail {% endcomment %}
-                      <div class="video-facade" data-video-type="youtube" data-video-id="{{ block.settings.video_url.id }}">
-                        <img 
-                          src="https://img.youtube.com/vi/{{ block.settings.video_url.id }}/hqdefault.jpg" 
-                          alt="{{ block.settings.title }}" 
-                          loading="lazy" 
-                          width="480" 
-                          height="270">
-                        <button class="play-btn" aria-label="Play video">
-                          <svg viewBox="0 0 68 48" width="48" height="34">
-                            <path class="play-btn-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#B38487"></path>
-                            <path d="M 45,24 27,14 27,34" fill="#fff"></path>
-                          </svg>
-                        </button>
-                      </div>
-                    {% elsif block.settings.video_url.type == 'vimeo' %}
-                      {% comment %} Fallback for Vimeo {% endcomment %}
-                      <iframe 
-                        src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}" 
-                        frameborder="0" 
-                        allow="autoplay; fullscreen; picture-in-picture" 
-                        allowfullscreen
-                        loading="lazy">
-                      </iframe>
-                    {% endif %}
+          <div class="category-slider-wrapper">
+            <div class="category-slider">
+              {% for block in section.blocks %}
+                {% if block.settings.category == cat %}
+                  <div class="full-gallery-card" {{ block.shopify_attributes }}>
+                    <div class="full-gallery-video-wrapper">
+                      {% if block.settings.video_url.type == 'youtube' %}
+                        {% comment %} Lazy facade for YouTube using HQ thumbnail {% endcomment %}
+                        <div class="video-facade" data-video-type="youtube" data-video-id="{{ block.settings.video_url.id }}">
+                          <img 
+                            src="https://img.youtube.com/vi/{{ block.settings.video_url.id }}/hqdefault.jpg" 
+                            alt="{{ block.settings.title }}" 
+                            loading="lazy" 
+                            width="480" 
+                            height="270">
+                          <button class="play-btn" aria-label="Play video">
+                            <svg viewBox="0 0 68 48" width="48" height="34">
+                              <path class="play-btn-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#B38487"></path>
+                              <path d="M 45,24 27,14 27,34" fill="#fff"></path>
+                            </svg>
+                          </button>
+                        </div>
+                      {% elsif block.settings.video_url.type == 'vimeo' %}
+                        {% comment %} Fallback for Vimeo {% endcomment %}
+                        <iframe 
+                          src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}" 
+                          frameborder="0" 
+                          allow="autoplay; fullscreen; picture-in-picture" 
+                          allowfullscreen
+                          loading="lazy">
+                        </iframe>
+                      {% endif %}
+                    </div>
+                    <div class="full-gallery-info">
+                      <span class="full-gallery-badge">{{ block.settings.category }}</span>
+                      <h3 class="full-gallery-title">{{ block.settings.title }}</h3>
+                    </div>
                   </div>
-                  <div class="full-gallery-info">
-                    <span class="full-gallery-badge">{{ block.settings.category }}</span>
-                    <h3 class="full-gallery-title">{{ block.settings.title }}</h3>
-                  </div>
-                </div>
-              {% endif %}
-            {% endfor %}
+                {% endif %}
+              {% endfor %}
+            </div>
+
+            {% comment %} Arrow navigation buttons positioned down/beside the slider {% endcomment %}
+            {% if cat_video_count > 3 %}
+              <div class="slider-nav-btns desktop-only-nav">
+                <button class="slider-btn prev-btn" aria-label="Previous videos" data-dir="prev">
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <button class="slider-btn next-btn" aria-label="Next videos" data-dir="next">
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+              </div>
+            {% endif %}
           </div>
         </div>
       {% endif %}
@@ -174,11 +178,8 @@
     margin-bottom: 55px;
   }
   .category-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     border-bottom: 2px solid #EAE0DD;
-    padding-bottom: 12px;
+    padding-bottom: 10px;
     margin-bottom: 20px;
   }
   .category-title {
@@ -188,18 +189,32 @@
     margin: 0;
   }
 
-  /* Navigation Buttons Style */
-  .slider-nav-btns {
-    display: flex;
-    gap: 8px;
-    align-items: center;
+  /* Slider Wrapper & Down Navigation Layout */
+  .category-slider-wrapper {
+    position: relative;
   }
+
+  /* Navigation Buttons Style (Desktop Only) */
+  .slider-nav-btns {
+    display: none; /* Hidden on mobile/tablet */
+  }
+
+  @media screen and (min-width: 1025px) {
+    .slider-nav-btns.desktop-only-nav {
+      display: flex;
+      gap: 8px;
+      position: absolute;
+      top: -50px; /* Puts them neatly aligned with the header line on the right */
+      right: 0;
+    }
+  }
+
   .slider-btn {
     background: #ffffff;
     border: 1px solid #EAE0DD;
     color: #5A3D31;
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -212,26 +227,6 @@
     background-color: #B38487;
     border-color: #B38487;
     color: #ffffff;
-  }
-
-  /* Responsive Display Rules for Nav Buttons */
-  /* If 1 video: Hide across Mobile, Tablet, Desktop */
-  .slider-nav-btns.hide-mobile-up {
-    display: none !important;
-  }
-
-  /* If 2 videos: Hide on Desktop & Tablet (visible on Mobile only) */
-  @media screen and (min-width: 768px) {
-    .slider-nav-btns.hide-tablet-up {
-      display: none !important;
-    }
-  }
-
-  /* If 3 videos: Hide on Desktop only (visible on Mobile & Tablet) */
-  @media screen and (min-width: 1025px) {
-    .slider-nav-btns.hide-desktop-only {
-      display: none !important;
-    }
   }
 
   .category-slider {
