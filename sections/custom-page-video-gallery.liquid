@@ -75,20 +75,23 @@
 
     {% comment %} Loop through each category to create a slider row {% endcomment %}
     {% for cat in categories %}
-      {% assign cat_has_videos = false %}
+      {% assign cat_video_count = 0 %}
       
       {% for block in section.blocks %}
         {% if block.settings.category == cat %}
-          {% assign cat_has_videos = true %}
-          {% break %}
+          {% assign cat_video_count = cat_video_count | plus: 1 %}
         {% endif %}
       {% endfor %}
 
-      {% if cat_has_videos %}
+      {% if cat_video_count > 0 %}
         <div class="category-row">
           <div class="category-header">
             <h2 class="category-title">{{ cat }} Tutorials</h2>
-            <span class="swipe-hint">Swipe to see more →</span>
+            
+            {% comment %} Conditional class based on item count {% endcomment %}
+            <span class="swipe-hint {% if cat_video_count <= 1 %}hide-mobile-up{% elsif cat_video_count <= 2 %}hide-tablet-up{% elsif cat_video_count <= 3 %}hide-desktop-only{% endif %}">
+              Swipe to see more →
+            </span>
           </div>
 
           <div class="category-slider">
@@ -183,6 +186,26 @@
     font-size: 13px;
     color: #8C585C;
     font-weight: 500;
+  }
+
+  /* Responsive Display Rules for Swipe Hint */
+  /* If 1 video: Hide across Mobile, Tablet, Desktop */
+  .swipe-hint.hide-mobile-up {
+    display: none !important;
+  }
+
+  /* If 2 videos: Hide on Desktop & Tablet (visible on Mobile only) */
+  @media screen and (min-width: 768px) {
+    .swipe-hint.hide-tablet-up {
+      display: none !important;
+    }
+  }
+
+  /* If 3 videos: Hide on Desktop only (visible on Mobile & Tablet) */
+  @media screen and (min-width: 1025px) {
+    .swipe-hint.hide-desktop-only {
+      display: none !important;
+    }
   }
 
   .category-slider {
