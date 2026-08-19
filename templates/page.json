@@ -62,14 +62,6 @@
     "custom_page_video_gallery_aLJPzy": {
       "type": "custom-page-video-gallery",
       "blocks": {
-        "video_item_G3N6kb": {
-          "type": "video_item",
-          "settings": {
-            "title": "Foundation Flex Rubber Base Gel Application",
-            "category": "Foundation Flex",
-            "video_url": "https://www.youtube.com/watch?v=EzQq2TnchAw"
-          }
-        },
         "video_item_Nz4Dj6": {
           "type": "video_item",
           "settings": {
@@ -108,6 +100,14 @@
             "title": "Brush On Builder Gel - Creating an Extension",
             "category": "Builder Gel",
             "video_url": "https://www.youtube.com/watch?v=lVzlD2eTYuU"
+          }
+        },
+        "video_item_G3N6kb": {
+          "type": "video_item",
+          "settings": {
+            "title": "Foundation Flex Rubber Base Gel Application",
+            "category": "Foundation Flex",
+            "video_url": "https://www.youtube.com/watch?v=EzQq2TnchAw"
           }
         },
         "video_item_fzXmhH": {
@@ -190,6 +190,14 @@
             "video_url": "https://www.youtube.com/watch?v=msJOo6JfxOM"
           }
         },
+        "video_item_MCFkQC": {
+          "type": "video_item",
+          "settings": {
+            "title": "Soft Gel Step By Step",
+            "category": "Soft Gel Tips",
+            "video_url": "https://www.youtube.com/watch?v=ongX0B4Lzx0"
+          }
+        },
         "video_item_JeXfR3": {
           "type": "video_item",
           "settings": {
@@ -200,12 +208,12 @@
         }
       },
       "block_order": [
-        "video_item_G3N6kb",
         "video_item_Nz4Dj6",
         "video_item_VLhBXj",
         "video_item_qeAJHp",
         "video_item_kQgVAH",
         "video_item_nwxFJt",
+        "video_item_G3N6kb",
         "video_item_fzXmhH",
         "video_item_MarGgf",
         "video_item_aGDUVn",
@@ -216,6 +224,7 @@
         "video_item_Xy6rKw",
         "video_item_aVcLhP",
         "video_item_TV8HD4",
+        "video_item_MCFkQC",
         "video_item_JeXfR3"
       ],
       "name": "Full Video Gallery",
