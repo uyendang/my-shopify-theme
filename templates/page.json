@@ -62,14 +62,6 @@
     "custom_page_video_gallery_aLJPzy": {
       "type": "custom-page-video-gallery",
       "blocks": {
-        "video_item_VLhBXj": {
-          "type": "video_item",
-          "settings": {
-            "title": "Gelish - Nail Preparation",
-            "category": "Gel Polish",
-            "video_url": "https://www.youtube.com/watch?v=4rcQACtIBxI"
-          }
-        },
         "video_item_Nz4Dj6": {
           "type": "video_item",
           "settings": {
@@ -92,6 +84,14 @@
             "title": "Brush On Builder Gel - Removal",
             "category": "Builder Gel",
             "video_url": "https://www.youtube.com/watch?v=cB27rlC0Qv4"
+          }
+        },
+        "video_item_yAzBwb": {
+          "type": "video_item",
+          "settings": {
+            "title": "Gelish Xpress Dip N Brush Application",
+            "category": "Dip Powder",
+            "video_url": "https://www.youtube.com/watch?v=6vfwxTBD0lw"
           }
         },
         "video_item_nwxFJt": {
@@ -126,12 +126,36 @@
             "video_url": "https://www.youtube.com/watch?v=H7w7COS5PvM"
           }
         },
+        "video_item_VLhBXj": {
+          "type": "video_item",
+          "settings": {
+            "title": "Gelish - Nail Preparation",
+            "category": "Gel Polish",
+            "video_url": "https://www.youtube.com/watch?v=4rcQACtIBxI"
+          }
+        },
         "video_item_Fjymf3": {
           "type": "video_item",
           "settings": {
             "title": "Xpress Dip French Tip Step By Step",
             "category": "Dip Powder",
             "video_url": "https://www.youtube.com/watch?v=8z3Z1jpfwIs"
+          }
+        },
+        "video_item_MyLXMm": {
+          "type": "video_item",
+          "settings": {
+            "title": "Gelish Xpress Dip N Brush Soak-Off Removal",
+            "category": "Dip Powder",
+            "video_url": "https://www.youtube.com/watch?v=1J9gtmANVto"
+          }
+        },
+        "video_item_j6nGTQ": {
+          "type": "video_item",
+          "settings": {
+            "title": "Gelish Xpress Dip N Brush French Tip Application",
+            "category": "Dip Powder",
+            "video_url": "https://www.youtube.com/watch?v=L5nihsQ0JuM"
           }
         },
         "video_item_Xy6rKw": {
@@ -168,15 +192,18 @@
         }
       },
       "block_order": [
-        "video_item_VLhBXj",
         "video_item_Nz4Dj6",
         "video_item_qeAJHp",
         "video_item_kQgVAH",
+        "video_item_yAzBwb",
         "video_item_nwxFJt",
         "video_item_fzXmhH",
         "video_item_MarGgf",
         "video_item_aGDUVn",
+        "video_item_VLhBXj",
         "video_item_Fjymf3",
+        "video_item_MyLXMm",
+        "video_item_j6nGTQ",
         "video_item_Xy6rKw",
         "video_item_aVcLhP",
         "video_item_TV8HD4",
