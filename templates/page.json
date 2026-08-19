@@ -62,14 +62,6 @@
     "custom_page_video_gallery_aLJPzy": {
       "type": "custom-page-video-gallery",
       "blocks": {
-        "video_item_BQ9pnJ": {
-          "type": "video_item",
-          "settings": {
-            "title": "PolyGel Brand Tutorial: Natural Clear",
-            "category": "PolyGel",
-            "video_url": "https://www.youtube.com/watch?v=r0AP7SIq4k0"
-          }
-        },
         "video_item_qMmrKa": {
           "type": "video_item",
           "settings": {
@@ -150,6 +142,22 @@
             "video_url": "https://www.youtube.com/watch?v=H7w7COS5PvM"
           }
         },
+        "video_item_BQ9pnJ": {
+          "type": "video_item",
+          "settings": {
+            "title": "PolyGel Brand Tutorial: Natural Clear",
+            "category": "PolyGel",
+            "video_url": "https://www.youtube.com/watch?v=r0AP7SIq4k0"
+          }
+        },
+        "video_item_KfrBEh": {
+          "type": "video_item",
+          "settings": {
+            "title": "PolyGel Brand Tutorial: Reverse French",
+            "category": "PolyGel",
+            "video_url": "https://www.youtube.com/watch?v=txWDNjzgqyg"
+          }
+        },
         "video_item_yAzBwb": {
           "type": "video_item",
           "settings": {
@@ -224,7 +232,6 @@
         }
       },
       "block_order": [
-        "video_item_BQ9pnJ",
         "video_item_qMmrKa",
         "video_item_Nz4Dj6",
         "video_item_VLhBXj",
@@ -235,6 +242,8 @@
         "video_item_fzXmhH",
         "video_item_MarGgf",
         "video_item_aGDUVn",
+        "video_item_BQ9pnJ",
+        "video_item_KfrBEh",
         "video_item_yAzBwb",
         "video_item_Fjymf3",
         "video_item_MyLXMm",
