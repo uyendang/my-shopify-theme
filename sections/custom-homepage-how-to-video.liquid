@@ -30,7 +30,7 @@
     {
       "type": "video_card",
       "name": "Video Card",
-      "limit": 3,
+      "limit": 6,
       "settings": [
         {
           "type": "text",
@@ -161,12 +161,15 @@
     color: #777;
     margin-bottom: 35px;
   }
+
+  /* Desktop Layout: Standard Grid */
   .video-tutorials-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     margin-bottom: 35px;
   }
+
   .video-card {
     background: #ffffff;
     border-radius: 12px;
@@ -176,6 +179,7 @@
     display: flex;
     flex-direction: column;
   }
+
   .video-wrapper {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
@@ -189,6 +193,7 @@
     width: 100%;
     height: 100%;
   }
+
   .video-card-info {
     padding: 18px 20px;
   }
@@ -210,6 +215,7 @@
     color: #4A4A4A;
     margin: 0;
   }
+
   .video-tutorials-btn-wrapper {
     margin-top: 20px;
     text-align: center;
@@ -227,5 +233,33 @@
   }
   .video-tutorials-btn:hover {
     background-color: #926669;
+  }
+
+  /* Mobile Layout: Swipeable Horizontal Carousel */
+  @media screen and (max-width: 767px) {
+    .video-tutorials-section {
+      padding: 40px 0 40px 15px; /* Padding left lets the cards align nicely */
+    }
+    .video-tutorials-container {
+      padding-right: 15px;
+    }
+    .video-tutorials-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 15px;
+      padding-bottom: 15px; /* Gives space for smooth scroll shadow */
+      margin-bottom: 20px;
+      /* Hide scrollbar for clean UI */
+      scrollbar-width: none; 
+    }
+    .video-tutorials-grid::-webkit-scrollbar {
+      display: none; 
+    }
+    .video-card {
+      flex: 0 0 82%; /* Shows 82% of card so next card peeks into screen */
+      scroll-snap-align: start;
+    }
   }
 </style>
