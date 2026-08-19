@@ -77,11 +77,20 @@
             "category": "Builder Gel",
             "video_url": "https://www.youtube.com/watch?v=cB27rlC0Qv4"
           }
+        },
+        "video_item_nwxFJt": {
+          "type": "video_item",
+          "settings": {
+            "title": "Brush On Builder Gel - Creating an Extension",
+            "category": "Builder Gel",
+            "video_url": "https://www.youtube.com/watch?v=lVzlD2eTYuU"
+          }
         }
       },
       "block_order": [
         "video_item_qeAJHp",
-        "video_item_kQgVAH"
+        "video_item_kQgVAH",
+        "video_item_nwxFJt"
       ],
       "name": "Full Video Gallery",
       "settings": {
