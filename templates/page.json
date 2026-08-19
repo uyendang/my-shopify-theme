@@ -142,6 +142,14 @@
             "video_url": "https://www.youtube.com/watch?v=H7w7COS5PvM"
           }
         },
+        "video_item_Hahxyj": {
+          "type": "video_item",
+          "settings": {
+            "title": "PolyGel Brand Tutorial: Nail Prep",
+            "category": "PolyGel",
+            "video_url": "https://www.youtube.com/watch?v=e2KMWemS_I8"
+          }
+        },
         "video_item_BQ9pnJ": {
           "type": "video_item",
           "settings": {
@@ -242,6 +250,7 @@
         "video_item_fzXmhH",
         "video_item_MarGgf",
         "video_item_aGDUVn",
+        "video_item_Hahxyj",
         "video_item_BQ9pnJ",
         "video_item_KfrBEh",
         "video_item_yAzBwb",
