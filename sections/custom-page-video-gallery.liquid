@@ -73,62 +73,76 @@
       <p class="full-gallery-subheading">{{ section.settings.subheading }}</p>
     {% endif %}
 
-    {% comment %} Loop through each category to create a grid section {% endcomment %}
+    {% comment %} Loop through each category to create a slider row {% endcomment %}
     {% for cat in categories %}
-      {% assign cat_has_videos = false %}
+      {% assign cat_video_count = 0 %}
       
       {% for block in section.blocks %}
         {% if block.settings.category == cat %}
-          {% assign cat_has_videos = true %}
-          {% break %}
+          {% assign cat_video_count = cat_video_count | plus: 1 %}
         {% endif %}
       {% endfor %}
 
-      {% if cat_has_videos %}
+      {% if cat_video_count > 0 %}
         <div class="category-row">
           <div class="category-header">
             <h2 class="category-title">{{ cat }} Tutorials</h2>
           </div>
 
-          <div class="category-grid">
-            {% for block in section.blocks %}
-              {% if block.settings.category == cat %}
-                <div class="full-gallery-card" {{ block.shopify_attributes }}>
-                  <div class="full-gallery-video-wrapper">
-                    {% if block.settings.video_url.type == 'youtube' %}
-                      {% comment %} Lazy facade for YouTube using HQ thumbnail {% endcomment %}
-                      <div class="video-facade" data-video-type="youtube" data-video-id="{{ block.settings.video_url.id }}">
-                        <img 
-                          src="https://img.youtube.com/vi/{{ block.settings.video_url.id }}/hqdefault.jpg" 
-                          alt="{{ block.settings.title }}" 
-                          loading="lazy" 
-                          width="480" 
-                          height="270">
-                        <button class="play-btn" aria-label="Play video">
-                          <svg viewBox="0 0 68 48" width="48" height="34">
-                            <path class="play-btn-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#B38487"></path>
-                            <path d="M 45,24 27,14 27,34" fill="#fff"></path>
-                          </svg>
-                        </button>
-                      </div>
-                    {% elsif block.settings.video_url.type == 'vimeo' %}
-                      {% comment %} Fallback for Vimeo {% endcomment %}
-                      <iframe 
-                        src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}" 
-                        frameborder="0" 
-                        allow="autoplay; fullscreen; picture-in-picture" 
-                        allowfullscreen
-                        loading="lazy">
-                      </iframe>
-                    {% endif %}
+          <div class="category-slider-wrapper">
+            {% comment %} Desktop-only arrows centered down on the sides of the video carousel {% endcomment %}
+            {% if cat_video_count > 3 %}
+              <button class="slider-btn prev-btn desktop-only-btn" aria-label="Previous videos" data-dir="prev">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+            {% endif %}
+
+            <div class="category-slider">
+              {% for block in section.blocks %}
+                {% if block.settings.category == cat %}
+                  <div class="full-gallery-card" {{ block.shopify_attributes }}>
+                    <div class="full-gallery-video-wrapper">
+                      {% if block.settings.video_url.type == 'youtube' %}
+                        {% comment %} Lazy facade for YouTube using HQ thumbnail {% endcomment %}
+                        <div class="video-facade" data-video-type="youtube" data-video-id="{{ block.settings.video_url.id }}">
+                          <img 
+                            src="https://img.youtube.com/vi/{{ block.settings.video_url.id }}/hqdefault.jpg" 
+                            alt="{{ block.settings.title }}" 
+                            loading="lazy" 
+                            width="480" 
+                            height="270">
+                          <button class="play-btn" aria-label="Play video">
+                            <svg viewBox="0 0 68 48" width="48" height="34">
+                              <path class="play-btn-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#B38487"></path>
+                              <path d="M 45,24 27,14 27,34" fill="#fff"></path>
+                            </svg>
+                          </button>
+                        </div>
+                      {% elsif block.settings.video_url.type == 'vimeo' %}
+                        {% comment %} Fallback for Vimeo {% endcomment %}
+                        <iframe 
+                          src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}" 
+                          frameborder="0" 
+                          allow="autoplay; fullscreen; picture-in-picture" 
+                          allowfullscreen
+                          loading="lazy">
+                        </iframe>
+                      {% endif %}
+                    </div>
+                    <div class="full-gallery-info">
+                      <span class="full-gallery-badge">{{ block.settings.category }}</span>
+                      <h3 class="full-gallery-title">{{ block.settings.title }}</h3>
+                    </div>
                   </div>
-                  <div class="full-gallery-info">
-                    <span class="full-gallery-badge">{{ block.settings.category }}</span>
-                    <h3 class="full-gallery-title">{{ block.settings.title }}</h3>
-                  </div>
-                </div>
-              {% endif %}
-            {% endfor %}
+                {% endif %}
+              {% endfor %}
+            </div>
+
+            {% if cat_video_count > 3 %}
+              <button class="slider-btn next-btn desktop-only-btn" aria-label="Next videos" data-dir="next">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            {% endif %}
           </div>
         </div>
       {% endif %}
@@ -167,7 +181,7 @@
   .category-header {
     border-bottom: 2px solid #EAE0DD;
     padding-bottom: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
   }
   .category-title {
     font-family: 'Playfair Display', serif;
@@ -176,14 +190,72 @@
     margin: 0;
   }
 
-  /* Standard Grid Layout */
-  .category-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
+  /* Slider & Desktop Arrow Container */
+  .category-slider-wrapper {
+    position: relative;
+  }
+
+  /* Completely Hide Arrow Buttons on Mobile & Tablet */
+  .desktop-only-btn {
+    display: none !important;
+  }
+
+  /* Show Arrows Vertically Centered Down in Video Section on Big Desktop Screens Only */
+  @media screen and (min-width: 1025px) {
+    .desktop-only-btn {
+      display: flex !important;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      background: #ffffff;
+      border: 1px solid #EAE0DD;
+      color: #5A3D31;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .desktop-only-btn:hover {
+      background-color: #B38487;
+      border-color: #B38487;
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    .desktop-only-btn.prev-btn {
+      left: -21px; /* Floating slightly outside on the left edge */
+    }
+    .desktop-only-btn.next-btn {
+      right: -21px; /* Floating slightly outside on the right edge */
+    }
+  }
+
+  /* Slider Container - Scrollbar Completely Hidden */
+  .category-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 20px;
+    padding-bottom: 5px;
+    scroll-behavior: smooth;
+    
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  .category-slider::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
   }
 
   .full-gallery-card {
+    flex: 0 0 320px;
+    scroll-snap-align: start;
     background: #ffffff;
     border-radius: 12px;
     overflow: hidden;
@@ -262,22 +334,16 @@
     margin: 0;
   }
 
-  /* Responsive Adjustments */
-  @media screen and (max-width: 990px) {
-    .category-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media screen and (max-width: 600px) {
-    .category-grid {
-      grid-template-columns: 1fr;
+  @media screen and (max-width: 767px) {
+    .full-gallery-card {
+      flex: 0 0 82%;
     }
   }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // 1. Handle Facade Play Click
     var facades = document.querySelectorAll('.video-facade');
     facades.forEach(function(facade) {
       facade.addEventListener('click', function() {
@@ -291,6 +357,23 @@
         var wrapper = this.parentElement;
         wrapper.innerHTML = '';
         wrapper.appendChild(iframe);
+      });
+    });
+
+    // 2. Handle Desktop Arrow Navigation Clicks
+    var navBtns = document.querySelectorAll('.slider-btn');
+    navBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var wrapper = this.closest('.category-slider-wrapper');
+        var slider = wrapper.querySelector('.category-slider');
+        var dir = this.getAttribute('data-dir');
+        var scrollAmount = 340; // Card width (320px) + Gap (20px)
+
+        if (dir === 'next') {
+          slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        } else {
+          slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        }
       });
     });
   });
