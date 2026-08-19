@@ -62,11 +62,27 @@
     "custom_page_video_gallery_aLJPzy": {
       "type": "custom-page-video-gallery",
       "blocks": {
+        "video_item_fzXmhH": {
+          "type": "video_item",
+          "settings": {
+            "title": "Gelish Solid Cream Gel Palette - Pre Application Nail Prep 💅",
+            "category": "Cream Gel",
+            "video_url": "https://www.youtube.com/watch?v=biPZD3x4JhQ"
+          }
+        },
+        "video_item_MarGgf": {
+          "type": "video_item",
+          "settings": {
+            "title": "Gelish Solid Cream Gel Palette - Application 💅",
+            "category": "Cream Gel",
+            "video_url": "https://www.youtube.com/watch?v=FtIQI8MX8mk"
+          }
+        },
         "video_item_aGDUVn": {
           "type": "video_item",
           "settings": {
             "title": "Gelish Solid Cream Gel Palette - Removal 💅",
-            "category": "Gel Polish",
+            "category": "Cream Gel",
             "video_url": "https://www.youtube.com/watch?v=H7w7COS5PvM"
           }
         },
@@ -96,6 +112,8 @@
         }
       },
       "block_order": [
+        "video_item_fzXmhH",
+        "video_item_MarGgf",
         "video_item_aGDUVn",
         "video_item_qeAJHp",
         "video_item_kQgVAH",
