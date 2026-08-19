@@ -61,6 +61,19 @@
     },
     "custom_page_video_gallery_aLJPzy": {
       "type": "custom-page-video-gallery",
+      "blocks": {
+        "video_item_qeAJHp": {
+          "type": "video_item",
+          "settings": {
+            "title": "Brush On Builder Gel - Natural Nail Application",
+            "category": "Gel Polish",
+            "video_url": "https://youtu.be/YuDm0wNrwo4"
+          }
+        }
+      },
+      "block_order": [
+        "video_item_qeAJHp"
+      ],
       "name": "Full Video Gallery",
       "settings": {
         "heading": "All How-To Tutorials & Guides",
