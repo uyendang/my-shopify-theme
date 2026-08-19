@@ -110,6 +110,14 @@
             "video_url": "https://www.youtube.com/watch?v=lVzlD2eTYuU"
           }
         },
+        "video_item_7bjLfD": {
+          "type": "video_item",
+          "settings": {
+            "title": "Brush-On Builder Gel Colors Infill",
+            "category": "Builder Gel",
+            "video_url": "https://www.youtube.com/watch?v=EU7znSynkH8"
+          }
+        },
         "video_item_G3N6kb": {
           "type": "video_item",
           "settings": {
@@ -262,6 +270,7 @@
         "video_item_qeAJHp",
         "video_item_kQgVAH",
         "video_item_nwxFJt",
+        "video_item_7bjLfD",
         "video_item_G3N6kb",
         "video_item_qMmrKa",
         "video_item_UwNP6U",
