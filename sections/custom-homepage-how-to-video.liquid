@@ -39,6 +39,18 @@
           "default": "How to Apply Gel Polish"
         },
         {
+          "type": "select",
+          "id": "category",
+          "label": "Category Tag",
+          "options": [
+            { "value": "Gel Polish", "label": "Gel Polish" },
+            { "value": "Builder Gel", "label": "Builder Gel" },
+            { "value": "Soft Gel Tips", "label": "Soft Gel Tips" },
+            { "value": "Nail Polish", "label": "Nail Polish" }
+          ],
+          "default": "Gel Polish"
+        },
+        {
           "type": "video_url",
           "id": "video_url",
           "label": "YouTube or Vimeo Link",
@@ -52,9 +64,27 @@
     {
       "name": "How-To Video Preview",
       "blocks": [
-        { "type": "video_card", "settings": { "title": "How to Apply Gel Polish" } },
-        { "type": "video_card", "settings": { "title": "How to Safely Remove Gel Polish" } },
-        { "type": "video_card", "settings": { "title": "Soft Gel Tips Tutorial" } }
+        { 
+          "type": "video_card", 
+          "settings": { 
+            "title": "How to Apply Gel Polish",
+            "category": "Gel Polish" 
+          } 
+        },
+        { 
+          "type": "video_card", 
+          "settings": { 
+            "title": "How to Safely Remove Gel Polish",
+            "category": "Gel Polish" 
+          } 
+        },
+        { 
+          "type": "video_card", 
+          "settings": { 
+            "title": "Soft Gel Tips Tutorial",
+            "category": "Soft Gel Tips" 
+          } 
+        }
       ]
     }
   ]
@@ -91,7 +121,11 @@
               </iframe>
             {% endif %}
           </div>
-          <h3 class="video-title">{{ block.settings.title }}</h3>
+          
+          <div class="video-card-info">
+            <span class="video-badge">{{ block.settings.category }}</span>
+            <h3 class="video-title">{{ block.settings.title }}</h3>
+          </div>
         </div>
       {% endfor %}
     </div>
@@ -135,16 +169,18 @@
   }
   .video-card {
     background: #ffffff;
-    padding: 15px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    overflow: hidden;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
   }
   .video-wrapper {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
     height: 0;
     overflow: hidden;
-    border-radius: 8px;
   }
   .video-wrapper iframe {
     position: absolute;
@@ -153,15 +189,30 @@
     width: 100%;
     height: 100%;
   }
+  .video-card-info {
+    padding: 18px 20px;
+  }
+  .video-badge {
+    display: inline-block;
+    background-color: #F3E5E3;
+    color: #8C585C;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
   .video-title {
     font-family: 'Playfair Display', serif;
     font-size: 16px;
     color: #4A4A4A;
-    margin-top: 15px;
-    margin-bottom: 5px;
+    margin: 0;
   }
   .video-tutorials-btn-wrapper {
     margin-top: 20px;
+    text-align: center;
   }
   .video-tutorials-btn {
     display: inline-block;
