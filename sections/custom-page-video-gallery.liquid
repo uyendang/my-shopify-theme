@@ -88,10 +88,15 @@
           <div class="category-header">
             <h2 class="category-title">{{ cat }} Tutorials</h2>
             
-            {% comment %} Conditional class based on item count {% endcomment %}
-            <span class="swipe-hint {% if cat_video_count <= 1 %}hide-mobile-up{% elsif cat_video_count <= 2 %}hide-tablet-up{% elsif cat_video_count <= 3 %}hide-desktop-only{% endif %}">
-              Swipe to see more →
-            </span>
+            {% comment %} Arrow buttons wrapper with conditional visibility {% endcomment %}
+            <div class="slider-nav-btns {% if cat_video_count <= 1 %}hide-mobile-up{% elsif cat_video_count <= 2 %}hide-tablet-up{% elsif cat_video_count <= 3 %}hide-desktop-only{% endif %}">
+              <button class="slider-btn prev-btn" aria-label="Previous videos" data-dir="prev">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+              <button class="slider-btn next-btn" aria-label="Next videos" data-dir="next">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            </div>
           </div>
 
           <div class="category-slider">
@@ -144,7 +149,7 @@
 <style>
   .full-gallery-section {
     padding: 60px 20px;
-    {% comment %} background-color: #FAF6F4; {% endcomment %}
+    background-color: #FAF6F4;
     min-height: 80vh;
   }
   .full-gallery-container {
@@ -171,9 +176,9 @@
   .category-header {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     border-bottom: 2px solid #EAE0DD;
-    padding-bottom: 10px;
+    padding-bottom: 12px;
     margin-bottom: 20px;
   }
   .category-title {
@@ -182,28 +187,49 @@
     color: #5A3D31;
     margin: 0;
   }
-  .swipe-hint {
-    font-size: 13px;
-    color: #8C585C;
-    font-weight: 500;
+
+  /* Navigation Buttons Style */
+  .slider-nav-btns {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .slider-btn {
+    background: #ffffff;
+    border: 1px solid #EAE0DD;
+    color: #5A3D31;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  }
+  .slider-btn:hover {
+    background-color: #B38487;
+    border-color: #B38487;
+    color: #ffffff;
   }
 
-  /* Responsive Display Rules for Swipe Hint */
+  /* Responsive Display Rules for Nav Buttons */
   /* If 1 video: Hide across Mobile, Tablet, Desktop */
-  .swipe-hint.hide-mobile-up {
+  .slider-nav-btns.hide-mobile-up {
     display: none !important;
   }
 
   /* If 2 videos: Hide on Desktop & Tablet (visible on Mobile only) */
   @media screen and (min-width: 768px) {
-    .swipe-hint.hide-tablet-up {
+    .slider-nav-btns.hide-tablet-up {
       display: none !important;
     }
   }
 
   /* If 3 videos: Hide on Desktop only (visible on Mobile & Tablet) */
   @media screen and (min-width: 1025px) {
-    .swipe-hint.hide-desktop-only {
+    .slider-nav-btns.hide-desktop-only {
       display: none !important;
     }
   }
@@ -217,6 +243,7 @@
     padding-bottom: 15px;
     scrollbar-width: thin;
     scrollbar-color: #B38487 #FAF6F4;
+    scroll-behavior: smooth;
   }
 
   .full-gallery-card {
@@ -315,6 +342,7 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // 1. Handle Facade Play Click
     var facades = document.querySelectorAll('.video-facade');
     facades.forEach(function(facade) {
       facade.addEventListener('click', function() {
@@ -328,6 +356,23 @@
         var wrapper = this.parentElement;
         wrapper.innerHTML = '';
         wrapper.appendChild(iframe);
+      });
+    });
+
+    // 2. Handle Arrow Navigation Clicks
+    var navBtns = document.querySelectorAll('.slider-btn');
+    navBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var row = this.closest('.category-row');
+        var slider = row.querySelector('.category-slider');
+        var dir = this.getAttribute('data-dir');
+        var scrollAmount = 340; // Card width (320px) + Gap (20px)
+
+        if (dir === 'next') {
+          slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        } else {
+          slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        }
       });
     });
   });
