@@ -137,20 +137,11 @@
         "collection_inverse_logo": false,
         "text_color_transparent_collection": ""
       }
-    },
-    "custom_page_video_gallery_ge3A6U": {
-      "type": "custom-page-video-gallery",
-      "name": "Full Video Gallery",
-      "settings": {
-        "heading": "All How-To Tutorials & Guides",
-        "subheading": "Step-by-step application and removal guides for all product lines."
-      }
     }
   },
   "order": [
     "custom_homepage_log_in_bar_8mEMBQ",
     "header_announcements_WbCTVz",
-    "header_section",
-    "custom_page_video_gallery_ge3A6U"
+    "header_section"
   ]
 }
