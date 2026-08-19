@@ -97,18 +97,29 @@
                 <div class="full-gallery-card" {{ block.shopify_attributes }}>
                   <div class="full-gallery-video-wrapper">
                     {% if block.settings.video_url.type == 'youtube' %}
-                      <iframe 
-                        src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                      </iframe>
+                      {% comment %} Lazy facade for YouTube using HQ thumbnail {% endcomment %}
+                      <div class="video-facade" data-video-type="youtube" data-video-id="{{ block.settings.video_url.id }}">
+                        <img 
+                          src="https://img.youtube.com/vi/{{ block.settings.video_url.id }}/hqdefault.jpg" 
+                          alt="{{ block.settings.title }}" 
+                          loading="lazy" 
+                          width="480" 
+                          height="270">
+                        <button class="play-btn" aria-label="Play video">
+                          <svg viewBox="0 0 68 48" width="48" height="34">
+                            <path class="play-btn-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#B38487"></path>
+                            <path d="M 45,24 27,14 27,34" fill="#fff"></path>
+                          </svg>
+                        </button>
+                      </div>
                     {% elsif block.settings.video_url.type == 'vimeo' %}
+                      {% comment %} Fallback for Vimeo {% endcomment %}
                       <iframe 
                         src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}" 
                         frameborder="0" 
                         allow="autoplay; fullscreen; picture-in-picture" 
-                        allowfullscreen>
+                        allowfullscreen
+                        loading="lazy">
                       </iframe>
                     {% endif %}
                   </div>
@@ -151,7 +162,6 @@
     margin-bottom: 50px;
   }
 
-  /* Category Section Layout */
   .category-row {
     margin-bottom: 55px;
   }
@@ -175,7 +185,6 @@
     font-weight: 500;
   }
 
-  /* Horizontal Carousel Slider */
   .category-slider {
     display: flex;
     overflow-x: auto;
@@ -188,7 +197,7 @@
   }
 
   .full-gallery-card {
-    flex: 0 0 320px; /* Fixed width per slide card */
+    flex: 0 0 320px;
     scroll-snap-align: start;
     background: #ffffff;
     border-radius: 12px;
@@ -202,6 +211,7 @@
     position: relative;
     padding-bottom: 56.25%;
     height: 0;
+    background-color: #000;
   }
   .full-gallery-video-wrapper iframe {
     position: absolute;
@@ -209,6 +219,40 @@
     left: 0;
     width: 100%;
     height: 100%;
+  }
+
+  /* Facade Optimization Styles */
+  .video-facade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .video-facade img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .video-facade:hover img {
+    transform: scale(1.04);
+  }
+  .play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.2s ease;
+  }
+  .video-facade:hover .play-btn {
+    transform: translate(-50%, -50%) scale(1.1);
   }
 
   .full-gallery-info {
@@ -233,16 +277,35 @@
     margin: 0;
   }
 
-  /* Responsive behavior for smaller screens */
   @media screen and (max-width: 767px) {
     .full-gallery-card {
-      flex: 0 0 82%; /* Allows peek preview of next slide card on phone screens */
+      flex: 0 0 82%;
     }
     .category-slider {
-      scrollbar-width: none; /* Hide scrollbar on touch screens */
+      scrollbar-width: none;
     }
     .category-slider::-webkit-scrollbar {
       display: none;
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var facades = document.querySelectorAll('.video-facade');
+    facades.forEach(function(facade) {
+      facade.addEventListener('click', function() {
+        var videoId = this.getAttribute('data-video-id');
+        var iframe = document.createElement('iframe');
+        iframe.setAttribute('src', 'https://www.youtube.com/embed/' + videoId + '?autoplay=1');
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', '1');
+        
+        var wrapper = this.parentElement;
+        wrapper.innerHTML = '';
+        wrapper.appendChild(iframe);
+      });
+    });
+  });
+</script>
