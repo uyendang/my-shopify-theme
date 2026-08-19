@@ -1060,10 +1060,49 @@
         "description": "Professional prep foundations and top-tier UV devices configured to yield elite clinical adhesion records.",
         "view_all_text": "View All Essentials"
       }
+    },
+    "custom_homepage_how_to_video_gNapxt": {
+      "type": "custom-homepage-how-to-video",
+      "blocks": {
+        "video_card_G9KC3Q": {
+          "type": "video_card",
+          "settings": {
+            "title": "How to Apply Gel Polish",
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+          }
+        },
+        "video_card_tUcXdz": {
+          "type": "video_card",
+          "settings": {
+            "title": "How to Safely Remove Gel Polish",
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+          }
+        },
+        "video_card_7nCjCA": {
+          "type": "video_card",
+          "settings": {
+            "title": "Soft Gel Tips Tutorial",
+            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+          }
+        }
+      },
+      "block_order": [
+        "video_card_G9KC3Q",
+        "video_card_tUcXdz",
+        "video_card_7nCjCA"
+      ],
+      "name": "How-To Video Preview",
+      "settings": {
+        "heading": "How-To Tutorials & Application Guides",
+        "subheading": "Learn how to apply and remove gel polish, builder gel, and soft gel tips like a pro.",
+        "btn_text": "See All How-To Videos →",
+        "btn_link": ""
+      }
     }
   },
   "order": [
     "hero_iLBwPd",
+    "custom_homepage_how_to_video_gNapxt",
     "custom_homepage_banner_with_product_carousel_8CzBnT",
     "custom_homepage_bottom_info_banner_ERErDw",
     "product_list_EDUBdR",
