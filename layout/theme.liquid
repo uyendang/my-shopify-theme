@@ -43,8 +43,7 @@
     {{ content_for_header }}
   {%comment%}Bss Hide Section{%endcomment%}{% capture bss_lock_check %}{% render 'bss-lock-condition', scope: 'section', variable: 'hide_section_css' %}{% endcapture %}{{ bss_lock_check }}{%comment%}Bss Hide Section{%endcomment%}
 <style>
-
-/* Base store and carousel price selectors */
+  /* 1. Base store & product carousel prices */
   .product-price,
   .product-info .product-price,
   .price,
@@ -52,13 +51,21 @@
   .price-item,
   .card__information .price,
 
-  /* Exact cart markup selectors */
+  /* 2. Cart table line-item & unit prices */
   .cart-items__unit-price-wrapper,
   .cart-items__price,
   .cart-items__price text-component,
   td[headers="productTotal"],
   
-  /* Additional standard cart/mini-cart selectors */
+  /* 3. Cart estimated total section */
+  .cart-totals__total-value,
+  .cart-totals__total,              /* Hides both "Estimated total" label and the price amount */
+  .cart-totals__container,          /* Hides the entire totals summary block */
+  text-component[ref="cartTotal"],
+  [data-testid="cart-total-value"],
+  [data-cart-subtotal],
+
+  /* 4. Mini-cart / Drawer standard selectors */
   .cart-item__price,
   .cart-drawer__price,
   .totals__subtotal-value,
@@ -68,7 +75,6 @@
       visibility: hidden !important;
       opacity: 0 !important;
   }
-</style>
 </head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
