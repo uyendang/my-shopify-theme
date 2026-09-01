@@ -83,6 +83,29 @@
 #checkout {
     display: none !important;
 } {% endcomment %}
+
+.Byb5s,
+div[role="cell"] .Byb5s,
+
+/* 2. Hide Subtotal row price */
+._1qy6ue60 ._1qy6ue68,
+
+/* 3. Hide Total row (label, USD tag, and total price) */
+._1x41w3p1,
+._1x41w3p2,
+._1x41w3p3,
+
+/* 4. Target specific checkout price text elements & currency tags */
+[role="table"] .Byb5s span,
+[role="table"] ._1qy6ue68 span,
+[role="table"] ._1x41w3p3 strong,
+[role="table"] ._1x41w3p3 abbr,
+[role="table"] ._3KD7m,
+[role="table"] ._3XbdQ {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
 </style>
 </head>
 
