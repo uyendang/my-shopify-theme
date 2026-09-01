@@ -4328,4 +4328,12 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 }
 
 
+.price, 
+.product__price, 
+.product-price, 
+.card__information .price {
+    display: none !important;
+}
+
+
 }
