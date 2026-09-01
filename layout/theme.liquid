@@ -57,6 +57,14 @@
   .cart-items__price,
   .cart-items__price text-component,
   td[headers="productTotal"],
+
+  /* 3. Cart estimated total section */
+  .cart-totals__total-value,
+  .cart-totals__total,              /* Hides both "Estimated total" label and the price amount */
+  .cart-totals__container,          /* Hides the entire totals summary block */
+  text-component[ref="cartTotal"],
+  [data-testid="cart-total-value"],
+  [data-cart-subtotal],
   
   /* Additional standard cart/mini-cart selectors */
   .cart-item__price,
@@ -68,14 +76,6 @@
       visibility: hidden !important;
       opacity: 0 !important;
   }
-
-  /* 3. Cart estimated total section */
-  .cart-totals__total-value,
-  .cart-totals__total,              /* Hides both "Estimated total" label and the price amount */
-  .cart-totals__container,          /* Hides the entire totals summary block */
-  text-component[ref="cartTotal"],
-  [data-testid="cart-total-value"],
-  [data-cart-subtotal],
 </style>
 </head>
 
