@@ -44,32 +44,30 @@
   {%comment%}Bss Hide Section{%endcomment%}{% capture bss_lock_check %}{% render 'bss-lock-condition', scope: 'section', variable: 'hide_section_css' %}{% endcapture %}{{ bss_lock_check }}{%comment%}Bss Hide Section{%endcomment%}
 <style>
 
-  /* Force hide all prices storewide */
-.product-price,
+/* Base store and carousel price selectors */
+  .product-price,
   .product-info .product-price,
   .price,
   .product__price,
   .price-item,
   .card__information .price,
+
+  /* Exact cart markup selectors */
+  .cart-items__unit-price-wrapper,
+  .cart-items__price,
+  .cart-items__price text-component,
+  td[headers="productTotal"],
   
-  /* Cart Page & Cart Drawer / Mini Cart selectors */
+  /* Additional standard cart/mini-cart selectors */
   .cart-item__price,
-  .cart-item__discounted-prices,
-  .cart-item__final-price,
   .cart-drawer__price,
-  .cart-drawer .price,
-  .mini-cart__price,
-  .mini-cart .price,
-  .drawer__cart .price,
   .totals__subtotal-value,
   .totals__subtotal,
-  .cart__subtotal,
-  .cart-drawer__footer .totals,
-  .cart__blocks .totals {
+  .cart__subtotal {
       display: none !important;
       visibility: hidden !important;
+      opacity: 0 !important;
   }
-</style>
 </style>
 </head>
 
