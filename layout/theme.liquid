@@ -108,24 +108,21 @@
 
 
 
-/* Hide the entire right-hand Order Summary / Cart section in checkout */
-aside,
-header.EAjaz,
-[data-inspector-id="header"],
-section[aria-label="Shopping cart"],
-._17kya4ui,
-.apn1wde {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-}
-
-/* Expand the main checkout form to full width (optional) */
-.s-shell-section,
-main {
-    width: 100% !important;
-    max-width: 100% !important;
-}
+/* Hide all Add to Cart, Buy Now, Cart Drawer Checkout, and Cart Page Checkout buttons */
+  .atc-btn-submit,
+  .custom-add-btn,
+  button[name="add"],
+  .product-form__submit,
+  .shopify-payment-button,
+  .cart__checkout-button,
+  .cart-drawer__checkout,
+  #checkout,
+  a[href="/checkout"],
+  form[action="/checkout"] button {
+      display: none !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+  }
 </style>
 </head>
 
