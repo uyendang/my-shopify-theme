@@ -4335,6 +4335,18 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 .card__information .price {
     display: none !important;
 }
-
+.product-price,
+.price,
+.product__price,
+.price-item,
+.card__information .price,
+[data-product-price],
+.cart-item__price,
+.cart-drawer__price,
+.totals__subtotal-value {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
 
 }
