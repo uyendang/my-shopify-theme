@@ -41,7 +41,9 @@
     {% endif %}
 
     {{ content_for_header }}
-  {%comment%}Bss Hide Section{%endcomment%}{% capture bss_lock_check %}{% render 'bss-lock-condition', scope: 'section', variable: 'hide_section_css' %}{% endcapture %}{{ bss_lock_check }}{%comment%}Bss Hide Section{%endcomment%}</head>
+  {%comment%}Bss Hide Section{%endcomment%}{% capture bss_lock_check %}{% render 'bss-lock-condition', scope: 'section', variable: 'hide_section_css' %}{% endcapture %}{{ bss_lock_check }}{%comment%}Bss Hide Section{%endcomment%}
+
+</head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
