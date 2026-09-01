@@ -4270,6 +4270,20 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
 } */
 
 
+.product-price,
+.price,
+.product__price,
+.price-item,
+.card__information .price,
+[data-product-price],
+.cart-item__price,
+.cart-drawer__price,
+.totals__subtotal-value {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
 /* ==========================================================================
    MASTER LAYOUT CONTAINER RESETS (SCOPED TO PREVENT LEAKING)
    ========================================================================== */
@@ -4325,28 +4339,6 @@ main > .shopify-section:first-child .section:not(.disable-section-top-offset) {
   .essentials-menu-card:hover .essentials-card-title {
     color: #C0818B !important;
   }
-}
-
-
-.price, 
-.product__price, 
-.product-info .product-price,
-.product-price, 
-.card__information .price {
-    display: none !important;
-}
-.product-price,
-.price,
-.product__price,
-.price-item,
-.card__information .price,
-[data-product-price],
-.cart-item__price,
-.cart-drawer__price,
-.totals__subtotal-value {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
 }
 
 }
