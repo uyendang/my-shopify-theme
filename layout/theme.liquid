@@ -84,12 +84,6 @@
     display: none !important;
 } {% endcomment %}
 
-.i4DWM ._4QenE,
-#orderSummary,
-.i4DWM {
-   display: none !important;
-}
-
 
 /* 2. Hide Subtotal row price */
 ._1qy6ue60 ._1qy6ue68,
@@ -109,6 +103,28 @@
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
+}
+
+
+
+
+/* Hide the entire right-hand Order Summary / Cart section in checkout */
+aside,
+header.EAjaz,
+[data-inspector-id="header"],
+section[aria-label="Shopping cart"],
+._17kya4ui,
+.apn1wde {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* Expand the main checkout form to full width (optional) */
+.s-shell-section,
+main {
+    width: 100% !important;
+    max-width: 100% !important;
 }
 </style>
 </head>
