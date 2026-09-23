@@ -1,422 +1,281 @@
 {% schema %}
 {
-  "name": "Color Plus Grand Launch",
+  "name": "Color Plus Editorial",
   "settings": [
     {
       "type": "text",
-      "id": "badge_text",
-      "label": "Announcement Badge",
-      "default": "⚡ THE NEW ERA OF GEL POLISH HAS ARRIVED"
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "WORLDWIDE LAUNCH — 2026"
     },
     {
       "type": "text",
-      "id": "heading_prefix",
-      "label": "Small Heading",
-      "default": "INTRODUCING THE ALL-NEW"
+      "id": "title",
+      "label": "Title",
+      "default": "Gelish® Color Plus"
     },
     {
       "type": "text",
-      "id": "main_heading",
-      "label": "Main Headline",
-      "default": "gelish® COLOR PLUS"
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "250 Shades of Clean, High-Impact Performance."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Formulated with next-generation clean copolymer technology. Free of HEMA, TPO, and TPHP. Built for up to 21 days of flawless salon wear."
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link"
     },
     {
       "type": "text",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "250 Next-Gen Colors. Clean Copolymer Formula. Up to 21-Day Wear."
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "EXPLORE THE COLOR BOOK →"
     },
     {
       "type": "image_picker",
-      "id": "hero_image",
-      "label": "Hero Showcase Image",
-      "info": "Upload a high-res graphic or bottle cutout of Color Plus"
-    },
-    {
-      "type": "collection",
-      "id": "launch_collection",
-      "label": "Select Color Plus Collection"
-    },
-    {
-      "type": "url",
-      "id": "primary_btn_link",
-      "label": "Primary Button Link"
-    },
-    {
-      "type": "text",
-      "id": "primary_btn_text",
-      "label": "Primary Button Label",
-      "default": "EXPLORE ALL 250 SHADES →"
-    },
-    {
-      "type": "url",
-      "id": "secondary_btn_link",
-      "label": "Secondary Button Link"
-    },
-    {
-      "type": "text",
-      "id": "secondary_btn_text",
-      "label": "Secondary Button Label",
-      "default": "SHOP TRIPLE LUXE TRIO"
+      "id": "featured_img",
+      "label": "Featured Product Image"
     }
   ],
   "presets": [
     {
-      "name": "Color Plus Grand Launch"
+      "name": "Color Plus Editorial"
     }
   ]
 }
 {% endschema %}
 
-<div class="grand-launch-wrapper">
-  <div class="grand-launch-container">
+<div class="editorial-launch-section">
+  <div class="editorial-container">
     
-    <!-- LEFT COLUMN: HIGH IMPACT LAUNCH COPY -->
-    <div class="grand-launch-text">
-      
-      {% if section.settings.badge_text != blank %}
-        <div class="launch-pulse-badge">
-          <span class="pulse-dot"></span>
-          {{ section.settings.badge_text }}
-        </div>
-      {% endif %}
+    <!-- LEFT CONTENT BLOCK -->
+    <div class="editorial-content">
+      <span class="editorial-eyebrow">{{ section.settings.eyebrow }}</span>
+      <h1 class="editorial-title">{{ section.settings.title }}</h1>
+      <p class="editorial-sub">{{ section.settings.subtitle }}</p>
+      <p class="editorial-body">{{ section.settings.description }}</p>
 
-      <span class="launch-prefix">{{ section.settings.heading_prefix }}</span>
-      <h1 class="launch-title">{{ section.settings.main_heading }}</h1>
-      <p class="launch-sub">{{ section.settings.subheading }}</p>
-
-      <!-- STATS COUNTER BAR -->
-      <div class="launch-stats-grid">
-        <div class="stat-card">
-          <span class="stat-num">250</span>
-          <span class="stat-lbl">Vibrant Shades</span>
+      <div class="editorial-bullets">
+        <div class="bullet-item">
+          <strong>145</strong> Standard Cremes
         </div>
-        <div class="stat-card">
-          <span class="stat-num">21+</span>
-          <span class="stat-lbl">Days Wear</span>
+        <div class="bullet-item">
+          <strong>55</strong> Flash Glitters
         </div>
-        <div class="stat-card">
-          <span class="stat-num">100%</span>
-          <span class="stat-lbl">HEMA & TPO Free</span>
+        <div class="bullet-item">
+          <strong>40</strong> Cat Eye Effects
         </div>
       </div>
 
-      <!-- FEATURE HIGHLIGHT PILLS -->
-      <div class="launch-feature-tags">
-        <span>✨ True-Color Bottle Match</span>
-        <span>🖌️ ProGel 880 Brush</span>
-        <span>💎 25% Higher Shine Top Coat</span>
-      </div>
-
-      <!-- ACTION BUTTONS -->
-      <div class="launch-cta-group">
-        {% assign shop_url = section.settings.primary_btn_link | default: collections[section.settings.launch_collection].url %}
-        <a href="{{ shop_url }}" class="launch-btn-primary">
-          {{ section.settings.primary_btn_text }}
-        </a>
-
-        {% if section.settings.secondary_btn_link != blank %}
-          <a href="{{ section.settings.secondary_btn_link }}" class="launch-btn-secondary">
-            {{ section.settings.secondary_btn_text }}
-          </a>
-        {% endif %}
-      </div>
-
+      <a href="{{ section.settings.cta_link }}" class="editorial-btn">
+        {{ section.settings.cta_text }}
+      </a>
     </div>
 
-    <!-- RIGHT COLUMN: VISUAL SHOWCASE -->
-    <div class="grand-launch-visual">
-      <div class="visual-glow-backdrop"></div>
-      
-      {% if section.settings.hero_image != blank %}
-        <img 
-          src="{{ section.settings.hero_image | image_url: width: 1200 }}" 
-          alt="Gelish Color Plus Grand Launch"
-          class="launch-hero-img"
-          loading="eager"
-        >
-      {% else %}
-        <!-- GRAPHIC FALLBACK SHOWCASE CARD -->
-        <div class="launch-visual-fallback">
-          <div class="fallback-bottle-glow"></div>
-          <div class="fallback-badge-overlay">
-            <span class="big-bold-tag">250</span>
-            <span class="sub-bold-tag">COLOR REVOLUTION</span>
+    <!-- RIGHT HERO IMAGE WITH PALETTE STRIP -->
+    <div class="editorial-visual-wrapper">
+      <div class="color-palette-bar">
+        <span style="background: #a82036;" title="Heels Over Feels"></span>
+        <span style="background: #e65275;" title="Soft Pink"></span>
+        <span style="background: #8b3a7a;" title="Hot Mess Express"></span>
+        <span style="background: #1a1a1a;" title="Black Tie Vibe"></span>
+        <span style="background: #f4efe9;" title="Hard Launch"></span>
+      </div>
+
+      <div class="editorial-image-frame">
+        {% if section.settings.featured_img != blank %}
+          <img src="{{ section.settings.featured_img | image_url: width: 1000 }}" alt="Gelish Color Plus" loading="eager">
+        {% else %}
+          <div class="editorial-placeholder">
+            <span>250</span>
+            <p>TRUE COLOR REVOLUTION</p>
           </div>
-        </div>
-      {% endif %}
+        {% endif %}
+      </div>
     </div>
 
   </div>
 </div>
 
 <style>
-  .grand-launch-wrapper {
-    width: 100%;
-    background: linear-gradient(135deg, #12030a 0%, #2b0017 40%, #e6007e 100%);
-    color: #ffffff;
-    padding: 60px 20px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  .editorial-launch-section {
+    background-color: #FAF6F4;
+    padding: 80px 20px;
+    border-bottom: 1px solid #EFE4DF;
   }
 
-  .grand-launch-container {
-    max-width: 1280px;
+  .editorial-container {
+    max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 50px;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 70px;
     align-items: center;
   }
 
-  /* Pulse Announcement Badge */
-  .launch-pulse-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    padding: 6px 16px;
-    border-radius: 30px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-
-  .pulse-dot {
-    width: 8px;
-    height: 8px;
-    background-color: #00ff87;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #00ff87;
-    animation: pulseGlow 1.5s infinite;
-  }
-
-  @keyframes pulseGlow {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 135, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 255, 135, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 135, 0); }
-  }
-
-  /* Headings */
-  .launch-prefix {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 3px;
-    color: #ff91d0;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  .launch-title {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(36px, 5vw, 64px);
-    font-weight: 800;
-    line-height: 1.05;
-    margin: 0 0 16px 0;
-    color: #ffffff;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  }
-
-  .launch-sub {
-    font-size: 18px;
-    line-height: 1.5;
-    color: #f1d4e5;
-    margin-bottom: 30px;
-    max-width: 580px;
-  }
-
-  /* Stats Grid */
-  .launch-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin-bottom: 30px;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.25);
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .stat-card {
-    text-align: center;
-  }
-
-  .stat-num {
-    display: block;
-    font-size: 32px;
-    font-weight: 900;
-    color: #ffffff;
-    line-height: 1;
-  }
-
-  .stat-lbl {
+  .editorial-eyebrow {
     font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: #ffb8e2;
-  }
-
-  /* Feature Tags */
-  .launch-feature-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 35px;
-  }
-
-  .launch-feature-tags span {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-  }
-
-  /* CTAs */
-  .launch-cta-group {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .launch-btn-primary {
-    background: #ffffff;
-    color: #b30062;
-    padding: 16px 36px;
-    border-radius: 50px;
-    font-weight: 800;
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-decoration: none;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-    transition: all 0.3s ease;
-  }
-
-  .launch-btn-primary:hover {
-    transform: translateY(-3px);
-    background: #ffe3f2;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-  }
-
-  .launch-btn-secondary {
-    background: transparent;
-    color: #ffffff;
-    border: 2px solid rgba(255, 255, 255, 0.6);
-    padding: 14px 30px;
-    border-radius: 50px;
     font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  .launch-btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: #ffffff;
-  }
-
-  /* Visual Showcase Right Column */
-  .grand-launch-visual {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .visual-glow-backdrop {
-    position: absolute;
-    width: 350px;
-    height: 350px;
-    background: radial-gradient(circle, rgba(255, 0, 140, 0.6) 0%, rgba(0, 0, 0, 0) 70%);
-    border-radius: 50%;
-    z-index: 1;
-    filter: blur(40px);
-  }
-
-  .launch-hero-img {
-    position: relative;
-    z-index: 2;
-    max-width: 100%;
-    height: auto;
-    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.5));
-    transition: transform 0.5s ease;
-  }
-
-  .launch-hero-img:hover {
-    transform: scale(1.03);
-  }
-
-  .launch-visual-fallback {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    height: 420px;
-    background: linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 24px;
-    backdrop-filter: blur(15px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .big-bold-tag {
+    letter-spacing: 3px;
+    color: #8C585C;
+    text-transform: uppercase;
     display: block;
-    font-size: 100px;
-    font-weight: 900;
-    line-height: 0.9;
-    background: linear-gradient(180deg, #ffffff 0%, #ff83c8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
   }
 
-  .sub-bold-tag {
-    font-size: 16px;
-    font-weight: 800;
-    letter-spacing: 4px;
+  .editorial-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: #5A3D31;
+    margin: 0 0 16px 0;
+    line-height: 1.08;
+  }
+
+  .editorial-sub {
+    font-size: 20px;
+    font-weight: 600;
+    color: #8C585C;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .editorial-body {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #775A51;
+    margin-bottom: 30px;
+  }
+
+  .editorial-bullets {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 35px;
+    padding-top: 20px;
+    border-top: 1px solid #EAE0DC;
+  }
+
+  .bullet-item {
+    font-size: 13px;
+    color: #5A3D31;
+  }
+
+  .bullet-item strong {
+    display: block;
+    font-size: 24px;
+    font-family: 'Playfair Display', serif;
+    color: #8C585C;
+  }
+
+  .editorial-btn {
+    display: inline-block;
+    background-color: #5A3D31;
     color: #ffffff;
+    padding: 16px 36px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-decoration: none;
+    transition: background 0.3s ease;
   }
 
-  /* Mobile Adjustments */
+  .editorial-btn:hover {
+    background-color: #8C585C;
+  }
+
+  /* Right Visual */
+  .editorial-visual-wrapper {
+    position: relative;
+    display: flex;
+    gap: 15px;
+  }
+
+  .color-palette-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .color-palette-bar span {
+    width: 14px;
+    height: 50px;
+    border-radius: 10px;
+    transition: transform 0.2s ease;
+  }
+
+  .color-palette-bar span:hover {
+    transform: scaleX(1.4);
+  }
+
+  .editorial-image-frame {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid #EFE4DF;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(90, 61, 49, 0.06);
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .editorial-image-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .editorial-placeholder {
+    text-align: center;
+    padding: 40px;
+  }
+
+  .editorial-placeholder span {
+    font-family: 'Playfair Display', serif;
+    font-size: 96px;
+    font-weight: 700;
+    color: #B38487;
+    line-height: 0.9;
+    display: block;
+  }
+
+  .editorial-placeholder p {
+    font-size: 13px;
+    letter-spacing: 3px;
+    font-weight: 700;
+    color: #5A3D31;
+    margin-top: 10px;
+  }
+
   @media (max-width: 989px) {
-    .grand-launch-container {
+    .editorial-container {
       grid-template-columns: 1fr;
-      gap: 35px;
+      gap: 40px;
       text-align: center;
     }
-
-    .launch-sub {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .launch-pulse-badge {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .launch-feature-tags {
+    .editorial-bullets {
       justify-content: center;
     }
-
-    .launch-cta-group {
-      justify-content: center;
+    .color-palette-bar {
+      flex-direction: row;
+      width: 100%;
+      height: auto;
     }
-
-    .launch-stats-grid {
-      grid-template-columns: repeat(3, 1fr);
-      padding: 15px 10px;
+    .color-palette-bar span {
+      width: 100%;
+      height: 12px;
     }
-
-    .stat-num { font-size: 24px; }
-    .stat-lbl { font-size: 9px; }
+    .editorial-visual-wrapper {
+      flex-direction: column-reverse;
+    }
   }
 </style>
