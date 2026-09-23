@@ -1,161 +1,129 @@
 {% schema %}
 {
-  "name": "Color Plus Split Banner",
-  "settings": [
-    {
-      "type": "text",
-      "id": "badge",
-      "label": "Badge Text",
-      "default": "GLOBAL LAUNCH 2026"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "THE ALL-NEW GELISH® COLOR PLUS"
-    },
-    {
-      "type": "text",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "250 Vibrant Colors. Clean Copolymer Formula. Up to 21-Day Wear."
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button Link"
-    },
-    {
-      "type": "text",
-      "id": "button_label",
-      "label": "Button Label",
-      "default": "DISCOVER THE 250 SHADES →"
-    },
-    {
-      "type": "image_picker",
-      "id": "banner_image",
-      "label": "Main Banner Graphic"
-    }
-  ],
+  "name": "Color Plus Centered Hero",
+  "settings": [],
   "presets": [
     {
-      "name": "Color Plus Split Banner"
+      "name": "Color Plus Centered Hero"
     }
   ]
 }
 {% endschema %}
 
-<div class="cp-split-banner">
-  <div class="cp-split-container">
-    
-    <!-- LEFT TEXT BLOCK -->
-    <div class="cp-split-left">
-      <div class="cp-badge-pill">{{ section.settings.badge }}</div>
-      <h1 class="cp-title">{{ section.settings.heading }}</h1>
-      <p class="cp-subtitle">{{ section.settings.subheading }}</p>
+<div class="cp-centered-hero">
+  <div class="cp-centered-container">
+    <span class="cp-top-tag">NEW PRODUCT LINE LAUNCH</span>
+    <h1 class="cp-centered-title">gelish® COLOR PLUS</h1>
+    <p class="cp-centered-lead">Clean, Vibrant Color. Zero Compromise. Up to 21-Days of Wear.</p>
 
-      <ul class="cp-feature-list">
-        <li><span>✦</span> <b>100% Clean Formulation:</b> HEMA, TPO, and TPHP Free</li>
-        <li><span>✦</span> <b>True Color Tech:</b> Monochromatic pigment-matched bottle</li>
-        <li><span>✦</span> <b>ProGel 880 Brush:</b> Double the bristle density for streak-free coverage</li>
-      </ul>
-
-      <a href="{{ section.settings.button_link }}" class="cp-btn-primary">
-        {{ section.settings.button_label }}
-      </a>
+    <!-- 4-STAT GRID -->
+    <div class="cp-stats-row">
+      <div class="cp-stat-box">
+        <span class="stat-number">250</span>
+        <span class="stat-label">ALL-NEW SHADES</span>
+      </div>
+      <div class="cp-stat-box">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">HEMA & TPO FREE</span>
+      </div>
+      <div class="cp-stat-box">
+        <span class="stat-number">2x</span>
+        <span class="stat-label">BRISTLE DENSITY</span>
+      </div>
+      <div class="cp-stat-box">
+        <span class="stat-number">+25%</span>
+        <span class="stat-label">TOP COAT SHINE</span>
+      </div>
     </div>
 
-    <!-- RIGHT GRAPHIC BLOCK -->
-    <div class="cp-split-right">
-      {% if section.settings.banner_image != blank %}
-        <img src="{{ section.settings.banner_image | image_url: width: 1200 }}" alt="Gelish Color Plus Collection" loading="eager">
-      {% else %}
-        <div class="cp-graphic-placeholder">
-          <div class="cp-circle-back"></div>
-          <div class="cp-hero-card">
-            <span class="cp-hero-num">250</span>
-            <span class="cp-hero-lbl">ALL-NEW SHADES</span>
-          </div>
-        </div>
-      {% endif %}
+    <!-- BUTTON GROUP -->
+    <div class="cp-centered-actions">
+      <a href="/collections/gelish-color-plus" class="btn-main">SHOP THE COLLECTION</a>
+      <a href="/collections/gelish-color-plus" class="btn-sub">EXPLORE TRIPLE LUXE TRIO</a>
     </div>
-
   </div>
 </div>
 
 <style>
-  .cp-split-banner {
+  .cp-centered-hero {
     width: 100%;
-    background-color: #FAF6F4;
-    border-bottom: 1px solid #EFE4DF;
-    overflow: hidden;
+    background: linear-gradient(180deg, #FAF6F4 0%, #F3E5E3 100%);
+    padding: 80px 20px;
+    border-bottom: 1px solid #E5CECB;
+    text-align: center;
   }
 
-  .cp-split-container {
-    max-width: 1320px;
+  .cp-centered-container {
+    max-width: 900px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 580px;
   }
 
-  .cp-split-left {
-    padding: 70px 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-  }
-
-  .cp-badge-pill {
-    background: #F3E5E3;
-    border: 1px solid #E5CECB;
-    color: #8C585C;
+  .cp-top-tag {
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 2px;
-    padding: 6px 16px;
-    border-radius: 20px;
-    margin-bottom: 20px;
+    letter-spacing: 3px;
+    color: #8C585C;
     text-transform: uppercase;
+    display: block;
+    margin-bottom: 12px;
   }
 
-  .cp-title {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(36px, 4vw, 54px);
+  .cp-centered-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 5.5vw, 68px);
     font-weight: 700;
     color: #5A3D31;
-    line-height: 1.1;
     margin: 0 0 16px 0;
+    line-height: 1.05;
   }
 
-  .cp-subtitle {
-    font-size: 17px;
+  .cp-centered-lead {
+    font-size: 18px;
     color: #775A51;
-    line-height: 1.5;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
   }
 
-  .cp-feature-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 35px 0;
+  .cp-stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    background: #ffffff;
+    padding: 25px 20px;
+    border-radius: 12px;
+    border: 1px solid #EFE4DF;
+    box-shadow: 0 4px 20px rgba(90, 61, 49, 0.04);
+    margin-bottom: 40px;
   }
 
-  .cp-feature-list li {
-    font-size: 14px;
+  .cp-stat-box {
+    text-align: center;
+  }
+
+  .stat-number {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
     color: #5A3D31;
-    margin-bottom: 12px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #8C585C;
+  }
+
+  .cp-centered-actions {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
   }
 
-  .cp-feature-list span {
-    color: #B38487;
-  }
-
-  .cp-btn-primary {
+  .btn-main {
     background-color: #5A3D31;
     color: #ffffff;
     padding: 16px 36px;
@@ -164,80 +132,35 @@
     font-weight: 700;
     letter-spacing: 1.5px;
     text-decoration: none;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: background 0.3s ease;
   }
 
-  .cp-btn-primary:hover {
+  .btn-main:hover {
     background-color: #8C585C;
-    transform: translateY(-2px);
   }
 
-  .cp-split-right {
-    background-color: #3D271E;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
+  .btn-sub {
+    background-color: transparent;
+    color: #5A3D31;
+    border: 1.5px solid #5A3D31;
+    padding: 15px 32px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
   }
 
-  .cp-split-right img {
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
-  }
-
-  .cp-graphic-placeholder {
-    text-align: center;
+  .btn-sub:hover {
+    background-color: #5A3D31;
     color: #ffffff;
-    position: relative;
-    z-index: 2;
   }
 
-  .cp-circle-back {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 280px;
-    height: 280px;
-    background: radial-gradient(circle, rgba(179, 132, 135, 0.4) 0%, rgba(61, 39, 30, 0) 70%);
-    border-radius: 50%;
-    z-index: 1;
-  }
-
-  .cp-hero-card {
-    position: relative;
-    z-index: 2;
-  }
-
-  .cp-hero-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 110px;
-    font-weight: 700;
-    color: #FAF6F4;
-    line-height: 0.9;
-    display: block;
-  }
-
-  .cp-hero-lbl {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: #D4B2A7;
-  }
-
-  @media (max-width: 989px) {
-    .cp-split-container {
-      grid-template-columns: 1fr;
-    }
-    .cp-split-left {
-      padding: 50px 25px;
-      text-align: center;
-      align-items: center;
-    }
-    .cp-split-right {
-      min-height: 350px;
+  @media (max-width: 767px) {
+    .cp-stats-row {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
     }
   }
 </style>
