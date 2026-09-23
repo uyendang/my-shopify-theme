@@ -3,6 +3,23 @@
 </script>
 
 {% comment %} CSS Guard for Main Product Page Content {% endcomment %}
+<style>
+  /* Constrain Product Media Gallery Size */
+  #media-gallery,
+  [data-block-type="_product-media-gallery"],
+  .product-media-gallery,
+  .product-information > div:first-child {
+    max-width: 480px !important;
+    margin: 0 auto !important;
+  }
+
+  /* Make sure the image inside scales cleanly */
+  #media-gallery img {
+    max-height: 520px !important;
+    object-fit: contain !important;
+  }
+</style>
+
 {% unless customer %}
   <style>
     /* Hide prices, add to cart buttons, quantity selectors, and buy button blocks */
