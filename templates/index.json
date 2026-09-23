@@ -265,8 +265,10 @@
       "blocks": {
         "banner_row_xgHqjQ": {
           "type": "banner_row",
+          "name": "Color Plus",
           "settings": {
-            "banner_desktop": "shopify://shop_images/Color_Plus.png",
+            "banner_desktop": "shopify://shop_images/RONHARRISGROUP.COM_NO_DESCRIPTION_COLOR_PLUS_Banners_1000_x_1400_px.png",
+            "banner_mobile": "shopify://shop_images/RONHARRISGROUP.COM_NO_DESCRIPTION_COLOR_PLUS_Banners_800_x_400_px.png",
             "banner_heading": "",
             "banner_link": "",
             "product_collection": "color-plus",
