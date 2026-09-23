@@ -1,104 +1,243 @@
 {% schema %}
 {
-  "name": "Color Plus Ribbon",
-  "settings": [],
+  "name": "Color Plus Split Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge Text",
+      "default": "GLOBAL LAUNCH 2026"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "THE ALL-NEW GELISH® COLOR PLUS"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "250 Vibrant Colors. Clean Copolymer Formula. Up to 21-Day Wear."
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "DISCOVER THE 250 SHADES →"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Main Banner Graphic"
+    }
+  ],
   "presets": [
     {
-      "name": "Color Plus Ribbon"
+      "name": "Color Plus Split Banner"
     }
   ]
 }
 {% endschema %}
 
-<div class="launch-ribbon-section">
-  <div class="ribbon-container">
-    <div class="ribbon-text-group">
-      <span class="ribbon-pill">NEW LAUNCH</span>
-      <h3>Gelish® Color Plus — 250 Next-Gen Colors</h3>
-      <p>Clean Copolymer Formula • HEMA/TPO Free • 21+ Days Wear</p>
+<div class="cp-split-banner">
+  <div class="cp-split-container">
+    
+    <!-- LEFT TEXT BLOCK -->
+    <div class="cp-split-left">
+      <div class="cp-badge-pill">{{ section.settings.badge }}</div>
+      <h1 class="cp-title">{{ section.settings.heading }}</h1>
+      <p class="cp-subtitle">{{ section.settings.subheading }}</p>
+
+      <ul class="cp-feature-list">
+        <li><span>✦</span> <b>100% Clean Formulation:</b> HEMA, TPO, and TPHP Free</li>
+        <li><span>✦</span> <b>True Color Tech:</b> Monochromatic pigment-matched bottle</li>
+        <li><span>✦</span> <b>ProGel 880 Brush:</b> Double the bristle density for streak-free coverage</li>
+      </ul>
+
+      <a href="{{ section.settings.button_link }}" class="cp-btn-primary">
+        {{ section.settings.button_label }}
+      </a>
     </div>
 
-    <div class="ribbon-action">
-      <a href="/collections/gelish-color-plus" class="ribbon-btn">EXPLORE 250 SHADES →</a>
+    <!-- RIGHT GRAPHIC BLOCK -->
+    <div class="cp-split-right">
+      {% if section.settings.banner_image != blank %}
+        <img src="{{ section.settings.banner_image | image_url: width: 1200 }}" alt="Gelish Color Plus Collection" loading="eager">
+      {% else %}
+        <div class="cp-graphic-placeholder">
+          <div class="cp-circle-back"></div>
+          <div class="cp-hero-card">
+            <span class="cp-hero-num">250</span>
+            <span class="cp-hero-lbl">ALL-NEW SHADES</span>
+          </div>
+        </div>
+      {% endif %}
     </div>
+
   </div>
 </div>
 
 <style>
-  .launch-ribbon-section {
-    background: #5A3D31;
-    color: #ffffff;
-    padding: 20px;
-    border-bottom: 2px solid #8C585C;
+  .cp-split-banner {
+    width: 100%;
+    background-color: #FAF6F4;
+    border-bottom: 1px solid #EFE4DF;
+    overflow: hidden;
   }
 
-  .ribbon-container {
-    max-width: 1200px;
+  .cp-split-container {
+    max-width: 1320px;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 580px;
+  }
+
+  .cp-split-left {
+    padding: 70px 50px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
   }
 
-  .ribbon-text-group {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
-  }
-
-  .ribbon-pill {
-    background: #8C585C;
-    color: #ffffff;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    padding: 4px 10px;
-    border-radius: 12px;
-  }
-
-  .ribbon-text-group h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    color: #FAF6F4;
-    margin: 0;
-  }
-
-  .ribbon-text-group p {
-    font-size: 13px;
-    color: #D4B2A7;
-    margin: 0;
-  }
-
-  .ribbon-btn {
-    background: #FAF6F4;
-    color: #5A3D31;
-    padding: 12px 26px;
-    border-radius: 25px;
+  .cp-badge-pill {
+    background: #F3E5E3;
+    border: 1px solid #E5CECB;
+    color: #8C585C;
     font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    white-space: nowrap;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
   }
 
-  .ribbon-btn:hover {
-    background: #8C585C;
+  .cp-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(36px, 4vw, 54px);
+    font-weight: 700;
+    color: #5A3D31;
+    line-height: 1.1;
+    margin: 0 0 16px 0;
+  }
+
+  .cp-subtitle {
+    font-size: 17px;
+    color: #775A51;
+    line-height: 1.5;
+    margin-bottom: 30px;
+  }
+
+  .cp-feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 35px 0;
+  }
+
+  .cp-feature-list li {
+    font-size: 14px;
+    color: #5A3D31;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cp-feature-list span {
+    color: #B38487;
+  }
+
+  .cp-btn-primary {
+    background-color: #5A3D31;
     color: #ffffff;
+    padding: 16px 36px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
   }
 
-  @media (max-width: 767px) {
-    .ribbon-container {
-      flex-direction: column;
-      text-align: center;
+  .cp-btn-primary:hover {
+    background-color: #8C585C;
+    transform: translateY(-2px);
+  }
+
+  .cp-split-right {
+    background-color: #3D271E;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+  }
+
+  .cp-split-right img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .cp-graphic-placeholder {
+    text-align: center;
+    color: #ffffff;
+    position: relative;
+    z-index: 2;
+  }
+
+  .cp-circle-back {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(179, 132, 135, 0.4) 0%, rgba(61, 39, 30, 0) 70%);
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  .cp-hero-card {
+    position: relative;
+    z-index: 2;
+  }
+
+  .cp-hero-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 110px;
+    font-weight: 700;
+    color: #FAF6F4;
+    line-height: 0.9;
+    display: block;
+  }
+
+  .cp-hero-lbl {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #D4B2A7;
+  }
+
+  @media (max-width: 989px) {
+    .cp-split-container {
+      grid-template-columns: 1fr;
     }
-    .ribbon-text-group {
-      justify-content: center;
-      flex-direction: column;
-      gap: 6px;
+    .cp-split-left {
+      padding: 50px 25px;
+      text-align: center;
+      align-items: center;
+    }
+    .cp-split-right {
+      min-height: 350px;
     }
   }
 </style>
