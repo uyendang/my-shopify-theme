@@ -1,173 +1,104 @@
 {% schema %}
 {
-  "name": "Color Plus Tech Compare",
+  "name": "Color Plus Ribbon",
   "settings": [],
   "presets": [
     {
-      "name": "Color Plus Tech Compare"
+      "name": "Color Plus Ribbon"
     }
   ]
 }
 {% endschema %}
 
-<div class="compare-section">
-  <div class="compare-container">
-    <div class="compare-header">
-      <span class="compare-tag">THE NEXT GENERATION</span>
-      <h2>Gelish® Color Plus vs Standard Gel Polish</h2>
-      <p>Upgraded formulation, brush technology, and packaging engineered for the modern salon.</p>
+<div class="launch-ribbon-section">
+  <div class="ribbon-container">
+    <div class="ribbon-text-group">
+      <span class="ribbon-pill">NEW LAUNCH</span>
+      <h3>Gelish® Color Plus — 250 Next-Gen Colors</h3>
+      <p>Clean Copolymer Formula • HEMA/TPO Free • 21+ Days Wear</p>
     </div>
 
-    <div class="compare-table">
-      <div class="table-row table-head">
-        <div class="col-feature">FEATURE / SPEC</div>
-        <div class="col-old">ORIGINAL GELISH</div>
-        <div class="col-new">NEW COLOR PLUS</div>
-      </div>
-
-      <div class="table-row">
-        <div class="col-feature"><b>Wear Time</b></div>
-        <div class="col-old">Up to 14 Days</div>
-        <div class="col-new Highlight">Up to 21 Days</div>
-      </div>
-
-      <div class="table-row">
-        <div class="col-feature"><b>Clean Standard</b></div>
-        <div class="col-old">Standard Formulation</div>
-        <div class="col-new Highlight">100% HEMA, TPO & TPHP Free</div>
-      </div>
-
-      <div class="table-row">
-        <div class="col-feature"><b>Brush Technology</b></div>
-        <div class="col-old">440 Laser-Cut Bristles</div>
-        <div class="col-new Highlight">ProGel 880 Bristles (2x Density)</div>
-      </div>
-
-      <div class="table-row">
-        <div class="col-feature"><b>Color Identification</b></div>
-        <div class="col-old">Color Dot Indicator</div>
-        <div class="col-new Highlight">1:1 Monochromatic Bottle Match</div>
-      </div>
-
-      <div class="table-row">
-        <div class="col-feature"><b>Top Coat Gloss</b></div>
-        <div class="col-old">Standard Shine</div>
-        <div class="col-new Highlight">+25% Higher Shine (No-Cleanse)</div>
-      </div>
-    </div>
-
-    <div class="compare-footer">
-      <a href="/collections/gelish-color-plus" class="compare-btn">UPGRADE YOUR STORE TO COLOR PLUS →</a>
+    <div class="ribbon-action">
+      <a href="/collections/gelish-color-plus" class="ribbon-btn">EXPLORE 250 SHADES →</a>
     </div>
   </div>
 </div>
 
 <style>
-  .compare-section {
-    background: #FAF6F4;
-    padding: 70px 20px;
-    border-bottom: 1px solid #EFE4DF;
+  .launch-ribbon-section {
+    background: #5A3D31;
+    color: #ffffff;
+    padding: 20px;
+    border-bottom: 2px solid #8C585C;
   }
 
-  .compare-container {
-    max-width: 950px;
+  .ribbon-container {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-  }
-
-  .compare-tag {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: #8C585C;
-    text-transform: uppercase;
-  }
-
-  .compare-header h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    color: #5A3D31;
-    margin: 6px 0 10px 0;
-  }
-
-  .compare-header p {
-    font-size: 15px;
-    color: #775A51;
-    margin-bottom: 40px;
-  }
-
-  .compare-table {
-    background: #ffffff;
-    border-radius: 12px;
-    border: 1px solid #EFE4DF;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(90, 61, 49, 0.04);
-    margin-bottom: 35px;
-  }
-
-  .table-row {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr 1.2fr;
-    padding: 16px 20px;
-    border-bottom: 1px solid #EFE4DF;
-    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
   }
 
-  .table-row:last-child {
-    border-bottom: none;
+  .ribbon-text-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
   }
 
-  .table-head {
-    background: #5A3D31;
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: 1px;
-  }
-
-  .col-feature {
-    text-align: left;
-    color: #5A3D31;
-  }
-
-  .col-old {
-    color: #888888;
-  }
-
-  .col-new {
-    color: #5A3D31;
-    font-weight: 600;
-  }
-
-  .col-new.Highlight {
-    color: #8C585C;
-    font-weight: 700;
-  }
-
-  .compare-btn {
-    display: inline-block;
-    background: #5A3D31;
-    color: #ffffff;
-    padding: 16px 36px;
-    border-radius: 30px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-decoration: none;
-    transition: background 0.3s ease;
-  }
-
-  .compare-btn:hover {
+  .ribbon-pill {
     background: #8C585C;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    border-radius: 12px;
   }
 
-  @media (max-width: 600px) {
-    .table-row {
-      grid-template-columns: 1fr;
-      gap: 6px;
+  .ribbon-text-group h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: #FAF6F4;
+    margin: 0;
+  }
+
+  .ribbon-text-group p {
+    font-size: 13px;
+    color: #D4B2A7;
+    margin: 0;
+  }
+
+  .ribbon-btn {
+    background: #FAF6F4;
+    color: #5A3D31;
+    padding: 12px 26px;
+    border-radius: 25px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .ribbon-btn:hover {
+    background: #8C585C;
+    color: #ffffff;
+  }
+
+  @media (max-width: 767px) {
+    .ribbon-container {
+      flex-direction: column;
       text-align: center;
     }
-    .col-feature { text-align: center; }
+    .ribbon-text-group {
+      justify-content: center;
+      flex-direction: column;
+      gap: 6px;
+    }
   }
 </style>
