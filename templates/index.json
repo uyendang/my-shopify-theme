@@ -1101,10 +1101,32 @@
         "description": "Professional prep foundations and top-tier UV devices configured to yield elite clinical adhesion records.",
         "view_all_text": "View All Essentials"
       }
+    },
+    "custom_homepage_color_plus_qUYdAf": {
+      "type": "custom-homepage-color-plus",
+      "blocks": {
+        "banner_row_hKH3gp": {
+          "type": "banner_row",
+          "settings": {
+            "banner_heading": "gelish® COLOR PLUS",
+            "banner_subheading": "Clean, Vibrant Color. Zero Compromise. Up to 21-Day Wear.",
+            "banner_link": "",
+            "product_collection": "",
+            "collection_custom_name": "Gelish Color Plus",
+            "products_count": 8
+          }
+        }
+      },
+      "block_order": [
+        "banner_row_hKH3gp"
+      ],
+      "name": "Gelish Color Plus Feature",
+      "settings": {}
     }
   },
   "order": [
     "hero_iLBwPd",
+    "custom_homepage_color_plus_qUYdAf",
     "custom_homepage_how_to_video_gNapxt",
     "custom_homepage_banner_with_product_carousel_8CzBnT",
     "custom_homepage_bottom_info_banner_ERErDw",
