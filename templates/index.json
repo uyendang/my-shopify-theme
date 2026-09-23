@@ -266,6 +266,7 @@
         "banner_row_xgHqjQ": {
           "type": "banner_row",
           "settings": {
+            "banner_desktop": "shopify://shop_images/Color_Plus.png",
             "banner_heading": "",
             "banner_link": "",
             "product_collection": "color-plus",
