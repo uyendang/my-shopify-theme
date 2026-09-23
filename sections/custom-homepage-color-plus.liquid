@@ -1,281 +1,212 @@
 {% schema %}
 {
-  "name": "Color Plus Editorial",
+  "name": "Color Plus Swatch Hub",
   "settings": [
     {
       "type": "text",
-      "id": "eyebrow",
-      "label": "Eyebrow Text",
-      "default": "WORLDWIDE LAUNCH — 2026"
+      "id": "heading",
+      "label": "Heading",
+      "default": "EXPLORE GELISH® COLOR PLUS"
     },
     {
       "type": "text",
-      "id": "title",
-      "label": "Title",
-      "default": "Gelish® Color Plus"
-    },
-    {
-      "type": "text",
-      "id": "subtitle",
-      "label": "Subtitle",
-      "default": "250 Shades of Clean, High-Impact Performance."
-    },
-    {
-      "type": "textarea",
-      "id": "description",
-      "label": "Description",
-      "default": "Formulated with next-generation clean copolymer technology. Free of HEMA, TPO, and TPHP. Built for up to 21 days of flawless salon wear."
-    },
-    {
-      "type": "url",
-      "id": "cta_link",
-      "label": "CTA Link"
-    },
-    {
-      "type": "text",
-      "id": "cta_text",
-      "label": "CTA Text",
-      "default": "EXPLORE THE COLOR BOOK →"
-    },
-    {
-      "type": "image_picker",
-      "id": "featured_img",
-      "label": "Featured Product Image"
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "250 Next-Gen Shades matched 1:1 with true-color bottle technology."
     }
   ],
   "presets": [
     {
-      "name": "Color Plus Editorial"
+      "name": "Color Plus Swatch Hub"
     }
   ]
 }
 {% endschema %}
 
-<div class="editorial-launch-section">
-  <div class="editorial-container">
-    
-    <!-- LEFT CONTENT BLOCK -->
-    <div class="editorial-content">
-      <span class="editorial-eyebrow">{{ section.settings.eyebrow }}</span>
-      <h1 class="editorial-title">{{ section.settings.title }}</h1>
-      <p class="editorial-sub">{{ section.settings.subtitle }}</p>
-      <p class="editorial-body">{{ section.settings.description }}</p>
+<div class="swatch-hub-section">
+  <div class="swatch-hub-container">
+    <div class="swatch-hub-header">
+      <span class="hub-eyebrow">THE 250 SHADE PALETTE</span>
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.subheading }}</p>
+    </div>
 
-      <div class="editorial-bullets">
-        <div class="bullet-item">
-          <strong>145</strong> Standard Cremes
-        </div>
-        <div class="bullet-item">
-          <strong>55</strong> Flash Glitters
-        </div>
-        <div class="bullet-item">
-          <strong>40</strong> Cat Eye Effects
-        </div>
+    <!-- CATEGORY PILL TABS -->
+    <div class="swatch-tabs">
+      <button class="tab-btn active" data-filter="all">All 250 Shades</button>
+      <button class="tab-btn" data-filter="reds">True Reds</button>
+      <button class="tab-btn" data-filter="nudes">Clean Nudes</button>
+      <button class="tab-btn" data-filter="glitter">Flash Glitters (55)</button>
+      <button class="tab-btn" data-filter="cateye">Cat Eye Effects (40)</button>
+    </div>
+
+    <!-- SWATCH GRID PREVIEW -->
+    <div class="swatch-matrix">
+      <div class="swatch-card" data-cat="reds">
+        <div class="dot-preview" style="background: #a82036;"></div>
+        <span class="swatch-name">Heels Over Feels</span>
+        <span class="swatch-num">#141</span>
       </div>
 
-      <a href="{{ section.settings.cta_link }}" class="editorial-btn">
-        {{ section.settings.cta_text }}
+      <div class="swatch-card" data-cat="nudes">
+        <div class="dot-preview" style="background: #e3caa8;"></div>
+        <span class="swatch-name">Bare With Me</span>
+        <span class="swatch-num">#102</span>
+      </div>
+
+      <div class="swatch-card" data-cat="glitter">
+        <div class="dot-preview" style="background: linear-gradient(135deg, #d4af37, #f7e7a1);"></div>
+        <span class="swatch-name">Gilded Glam</span>
+        <span class="swatch-num">#301</span>
+      </div>
+
+      <div class="swatch-card" data-cat="cateye">
+        <div class="dot-preview" style="background: radial-gradient(circle, #8b3a7a, #1a1a1a);"></div>
+        <span class="swatch-name">Hot Mess Express</span>
+        <span class="swatch-num">#195</span>
+      </div>
+
+      <div class="swatch-card" data-cat="reds">
+        <div class="dot-preview" style="background: #731222;"></div>
+        <span class="swatch-name">Black Tie Vibe</span>
+        <span class="swatch-num">#185</span>
+      </div>
+
+      <div class="swatch-card" data-cat="nudes">
+        <div class="dot-preview" style="background: #f4efe9;"></div>
+        <span class="swatch-name">Hard Launch</span>
+        <span class="swatch-num">#101</span>
+      </div>
+    </div>
+
+    <!-- FOOTER LINK -->
+    <div class="swatch-hub-footer">
+      <a href="/collections/gelish-color-plus" class="hub-cta-btn">
+        BROWSE ALL 250 SHADES IN CATALOG SHEET →
       </a>
     </div>
-
-    <!-- RIGHT HERO IMAGE WITH PALETTE STRIP -->
-    <div class="editorial-visual-wrapper">
-      <div class="color-palette-bar">
-        <span style="background: #a82036;" title="Heels Over Feels"></span>
-        <span style="background: #e65275;" title="Soft Pink"></span>
-        <span style="background: #8b3a7a;" title="Hot Mess Express"></span>
-        <span style="background: #1a1a1a;" title="Black Tie Vibe"></span>
-        <span style="background: #f4efe9;" title="Hard Launch"></span>
-      </div>
-
-      <div class="editorial-image-frame">
-        {% if section.settings.featured_img != blank %}
-          <img src="{{ section.settings.featured_img | image_url: width: 1000 }}" alt="Gelish Color Plus" loading="eager">
-        {% else %}
-          <div class="editorial-placeholder">
-            <span>250</span>
-            <p>TRUE COLOR REVOLUTION</p>
-          </div>
-        {% endif %}
-      </div>
-    </div>
-
   </div>
 </div>
 
 <style>
-  .editorial-launch-section {
+  .swatch-hub-section {
     background-color: #FAF6F4;
-    padding: 80px 20px;
+    padding: 70px 20px;
     border-bottom: 1px solid #EFE4DF;
   }
 
-  .editorial-container {
-    max-width: 1200px;
+  .swatch-hub-container {
+    max-width: 1100px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: 70px;
-    align-items: center;
+    text-align: center;
   }
 
-  .editorial-eyebrow {
+  .hub-eyebrow {
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     color: #8C585C;
     text-transform: uppercase;
-    display: block;
-    margin-bottom: 12px;
   }
 
-  .editorial-title {
+  .swatch-hub-header h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 52px;
-    font-weight: 700;
+    font-size: 38px;
     color: #5A3D31;
-    margin: 0 0 16px 0;
-    line-height: 1.08;
+    margin: 8px 0;
   }
 
-  .editorial-sub {
-    font-size: 20px;
-    font-weight: 600;
-    color: #8C585C;
-    margin-bottom: 16px;
-    line-height: 1.3;
-  }
-
-  .editorial-body {
+  .swatch-hub-header p {
     font-size: 15px;
-    line-height: 1.7;
     color: #775A51;
-    margin-bottom: 30px;
-  }
-
-  .editorial-bullets {
-    display: flex;
-    gap: 25px;
     margin-bottom: 35px;
-    padding-top: 20px;
-    border-top: 1px solid #EAE0DC;
   }
 
-  .bullet-item {
-    font-size: 13px;
+  .swatch-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 35px;
+  }
+
+  .tab-btn {
+    background: #ffffff;
+    border: 1px solid #EAE0DC;
     color: #5A3D31;
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
   }
 
-  .bullet-item strong {
-    display: block;
-    font-size: 24px;
-    font-family: 'Playfair Display', serif;
-    color: #8C585C;
-  }
-
-  .editorial-btn {
-    display: inline-block;
-    background-color: #5A3D31;
+  .tab-btn.active, .tab-btn:hover {
+    background: #5A3D31;
     color: #ffffff;
-    padding: 16px 36px;
-    border-radius: 4px;
+    border-color: #5A3D31;
+  }
+
+  .swatch-matrix {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .swatch-card {
+    background: #ffffff;
+    padding: 20px 15px;
+    border-radius: 12px;
+    border: 1px solid #EFE4DF;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+
+  .swatch-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(90, 61, 49, 0.06);
+  }
+
+  .dot-preview {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    margin: 0 auto 12px auto;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+
+  .swatch-name {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #5A3D31;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .swatch-num {
+    font-size: 11px;
+    color: #8C585C;
+    font-weight: 500;
+  }
+
+  .hub-cta-btn {
+    display: inline-block;
+    background-color: #B38487;
+    color: #ffffff;
+    padding: 15px 35px;
+    border-radius: 30px;
     font-size: 12px;
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     text-decoration: none;
     transition: background 0.3s ease;
   }
 
-  .editorial-btn:hover {
-    background-color: #8C585C;
-  }
-
-  /* Right Visual */
-  .editorial-visual-wrapper {
-    position: relative;
-    display: flex;
-    gap: 15px;
-  }
-
-  .color-palette-bar {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    justify-content: center;
-  }
-
-  .color-palette-bar span {
-    width: 14px;
-    height: 50px;
-    border-radius: 10px;
-    transition: transform 0.2s ease;
-  }
-
-  .color-palette-bar span:hover {
-    transform: scaleX(1.4);
-  }
-
-  .editorial-image-frame {
-    flex: 1;
-    background: #ffffff;
-    border: 1px solid #EFE4DF;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(90, 61, 49, 0.06);
-    min-height: 420px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .editorial-image-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .editorial-placeholder {
-    text-align: center;
-    padding: 40px;
-  }
-
-  .editorial-placeholder span {
-    font-family: 'Playfair Display', serif;
-    font-size: 96px;
-    font-weight: 700;
-    color: #B38487;
-    line-height: 0.9;
-    display: block;
-  }
-
-  .editorial-placeholder p {
-    font-size: 13px;
-    letter-spacing: 3px;
-    font-weight: 700;
-    color: #5A3D31;
-    margin-top: 10px;
-  }
-
-  @media (max-width: 989px) {
-    .editorial-container {
-      grid-template-columns: 1fr;
-      gap: 40px;
-      text-align: center;
-    }
-    .editorial-bullets {
-      justify-content: center;
-    }
-    .color-palette-bar {
-      flex-direction: row;
-      width: 100%;
-      height: auto;
-    }
-    .color-palette-bar span {
-      width: 100%;
-      height: 12px;
-    }
-    .editorial-visual-wrapper {
-      flex-direction: column-reverse;
-    }
+  .hub-cta-btn:hover {
+    background-color: #926669;
   }
 </style>
