@@ -1,0 +1,416 @@
+{% schema %}
+{
+  "name": "Full Video Gallery",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Page Heading",
+      "default": "All How-To Tutorials & Guides"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Step-by-step application and removal guides for all product lines."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video_item",
+      "name": "Video Tutorial",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Video Title",
+          "default": "How to Apply Gel Polish"
+        },
+        {
+          "type": "select",
+          "id": "category",
+          "label": "Category Tag",
+          "options": [
+            { "value": "Gel Polish", "label": "Gel Polish" },
+            { "value": "Cream Gel", "label": "Cream Gel" },
+            { "value": "Builder Gel", "label": "Builder Gel" },
+            { "value": "Soft Gel Tips", "label": "Soft Gel Tips" },
+            { "value": "Nail Polish", "label": "Nail Polish" },
+            { "value": "Dip Powder", "label": "Dip Powder" },
+            { "value": "Foundation Flex", "label": "Foundation Flex" },
+            { "value": "PolyGel", "label": "PolyGel" }
+          ],
+          "default": "Gel Polish"
+        },
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "label": "YouTube or Vimeo Link",
+          "accept": ["youtube", "vimeo"],
+          "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Full Video Gallery"
+    }
+  ]
+}
+{% endschema %}
+
+{% comment %} Array of categories to group by {% endcomment %}
+{% assign categories = "Gel Polish,Cream Gel,Builder Gel,Foundation Flex,Soft Gel Tips,Nail Polish,PolyGel,Dip Powder" | split: "," %}
+
+<div class="full-gallery-section">
+  <div class="full-gallery-container">
+    {% if section.settings.heading != blank %}
+      <h1 class="full-gallery-heading">{{ section.settings.heading }}</h1>
+    {% endif %}
+    
+    {% if section.settings.subheading != blank %}
+      <p class="full-gallery-subheading">{{ section.settings.subheading }}</p>
+    {% endif %}
+
+    {% comment %} Loop through each category to create a slider row {% endcomment %}
+    {% for cat in categories %}
+      {% assign cat_video_count = 0 %}
+      
+      {% for block in section.blocks %}
+        {% if block.settings.category == cat %}
+          {% assign cat_video_count = cat_video_count | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+
+      {% if cat_video_count > 0 %}
+        <div class="category-row">
+          <div class="category-header">
+            <h2 class="category-title">{{ cat }} Tutorials</h2>
+          </div>
+
+          <div class="category-slider-wrapper">
+            {% comment %} Prev/Next Buttons (Managed dynamically via JS) {% endcomment %}
+            <button class="slider-btn prev-btn desktop-only-btn" aria-label="Previous videos" data-dir="prev" style="display: none;">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+
+            <div class="category-slider">
+              {% for block in section.blocks %}
+                {% if block.settings.category == cat %}
+                  <div class="full-gallery-card" {{ block.shopify_attributes }}>
+                    <div class="full-gallery-video-wrapper">
+                      {% if block.settings.video_url.type == 'youtube' %}
+                        {% comment %} Lazy facade for YouTube using HQ thumbnail {% endcomment %}
+                        <div class="video-facade" data-video-type="youtube" data-video-id="{{ block.settings.video_url.id }}">
+                          <img 
+                            src="https://img.youtube.com/vi/{{ block.settings.video_url.id }}/hqdefault.jpg" 
+                            alt="{{ block.settings.title }}" 
+                            loading="lazy" 
+                            width="480" 
+                            height="270">
+                          <button class="play-btn" aria-label="Play video">
+                            <svg viewBox="0 0 68 48" width="48" height="34">
+                              <path class="play-btn-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#B38487"></path>
+                              <path d="M 45,24 27,14 27,34" fill="#fff"></path>
+                            </svg>
+                          </button>
+                        </div>
+                      {% elsif block.settings.video_url.type == 'vimeo' %}
+                        {% comment %} Fallback for Vimeo {% endcomment %}
+                        <iframe 
+                          src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}" 
+                          frameborder="0" 
+                          allow="autoplay; fullscreen; picture-in-picture" 
+                          allowfullscreen
+                          loading="lazy">
+                        </iframe>
+                      {% endif %}
+                    </div>
+                    <div class="full-gallery-info">
+                      <span class="full-gallery-badge">{{ block.settings.category }}</span>
+                      <h3 class="full-gallery-title">{{ block.settings.title }}</h3>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+
+            <button class="slider-btn next-btn desktop-only-btn" aria-label="Next videos" data-dir="next" style="display: none;">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+  </div>
+</div>
+
+<style>
+  .full-gallery-section {
+    padding: 60px 20px;
+    min-height: 80vh;
+  }
+  .full-gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .full-gallery-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    color: #5A3D31;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .full-gallery-subheading {
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .category-row {
+    margin-bottom: 55px;
+  }
+  .category-header {
+    border-bottom: 2px solid #EAE0DD;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  .category-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: #5A3D31;
+    margin: 0;
+  }
+
+  .category-slider-wrapper {
+    position: relative;
+  }
+
+  /* Desktop-Only Arrows Centered Vertically */
+  @media screen and (min-width: 1025px) {
+    .desktop-only-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      background: #ffffff;
+      border: 1px solid #EAE0DD;
+      color: #5A3D31;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .desktop-only-btn:hover {
+      background-color: #B38487;
+      border-color: #B38487;
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    .desktop-only-btn.prev-btn {
+      left: -21px;
+    }
+    .desktop-only-btn.next-btn {
+      right: -21px;
+    }
+  }
+
+  /* Hidden on Mobile / Tablet */
+  @media screen and (max-width: 1024px) {
+    .desktop-only-btn {
+      display: none !important;
+    }
+  }
+
+  .category-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 20px;
+    padding-bottom: 5px;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .category-slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  .full-gallery-card {
+    flex: 0 0 320px;
+    scroll-snap-align: start;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .full-gallery-video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    background-color: #000;
+  }
+  .full-gallery-video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .video-facade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .video-facade img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .video-facade:hover img {
+    transform: scale(1.04);
+  }
+  .play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.2s ease;
+  }
+  .video-facade:hover .play-btn {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  .full-gallery-info {
+    padding: 18px 20px;
+  }
+  .full-gallery-badge {
+    display: inline-block;
+    background-color: #F3E5E3;
+    color: #8C585C;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+  .full-gallery-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: #333333;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 767px) {
+    .full-gallery-card {
+      flex: 0 0 82%;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Facade Video Click
+    var facades = document.querySelectorAll('.video-facade');
+    facades.forEach(function(facade) {
+      facade.addEventListener('click', function() {
+        var videoId = this.getAttribute('data-video-id');
+        var iframe = document.createElement('iframe');
+        iframe.setAttribute('src', 'https://www.youtube.com/embed/' + videoId + '?autoplay=1');
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', '1');
+        
+        var wrapper = this.parentElement;
+        wrapper.innerHTML = '';
+        wrapper.appendChild(iframe);
+      });
+    });
+
+    // 2. Dynamic Arrow Visibility Handler
+    function updateArrowVisibility(wrapper) {
+      if (window.innerWidth <= 1024) return; // Only run on desktop
+
+      var slider = wrapper.querySelector('.category-slider');
+      var prevBtn = wrapper.querySelector('.prev-btn');
+      var nextBtn = wrapper.querySelector('.next-btn');
+
+      if (!slider || !prevBtn || !nextBtn) return;
+
+      var scrollLeft = slider.scrollLeft;
+      var maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+
+      // Show Prev only if scrolled past beginning
+      if (scrollLeft > 5) {
+        prevBtn.style.display = 'flex';
+      } else {
+        prevBtn.style.display = 'none';
+      }
+
+      // Show Next only if not reached the end
+      if (scrollLeft < maxScrollLeft - 5) {
+        nextBtn.style.display = 'flex';
+      } else {
+        nextBtn.style.display = 'none';
+      }
+    }
+
+    // Initialize Visibility and Event Listeners
+    var wrappers = document.querySelectorAll('.category-slider-wrapper');
+    wrappers.forEach(function(wrapper) {
+      var slider = wrapper.querySelector('.category-slider');
+      
+      // Update arrows when user scrolls or resizes
+      slider.addEventListener('scroll', function() {
+        updateArrowVisibility(wrapper);
+      });
+      window.addEventListener('resize', function() {
+        updateArrowVisibility(wrapper);
+      });
+
+      // Initial check
+      updateArrowVisibility(wrapper);
+    });
+
+    // 3. Desktop Arrow Button Click Handler
+    var navBtns = document.querySelectorAll('.slider-btn');
+    navBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var wrapper = this.closest('.category-slider-wrapper');
+        var slider = wrapper.querySelector('.category-slider');
+        var dir = this.getAttribute('data-dir');
+        var scrollAmount = 340;
+
+        if (dir === 'next') {
+          slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        } else {
+          slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        }
+      });
+    });
+  });
+</script>

@@ -44,6 +44,12 @@
           "label": "Select Collection for Carousel"
         },
         {
+          "type": "text",
+          "id": "collection_custom_name",
+          "label": "Custom Collection Name for 'See All' Link",
+          "info": "Optional. E.g. 'Flash Glitter'. Leaves fallback to the selected collection's title if blank."
+        },
+        {
           "type": "range",
           "id": "products_count",
           "label": "Number of products to show",
@@ -141,54 +147,32 @@
                             {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                           {% endif %}
                         </div>
-                        {% comment %} <div class="product-info">
-                          <span class="product-title">{{ product.title }}</span>
-                          <span class="product-price">{{ product.price | money }}</span>
-                        </div>
-                      </a> {% endcomment %}
 
-                      <div class="product-info">
-                        <span class="product-title">{{ product.title }}</span>
-                        
-                        {% if customer %}
-                          <span class="product-price">{{ product.price | money }}</span>
-                        {% endif %}
-                      </div>
+                        <div class="product-info">
+                          <span class="product-title">{{ product.title }}</span>
+                          
+                          {% if customer %}
+                            <span class="product-price">{{ product.price | money }}</span>
+                          {% endif %}
+                        </div>
                       </a>
 
-                      <!-- CLEAN INLINE ACTION WITH PARAMETER ATTRIBUTES -->
-                      {% comment %} <div class="product-card-action">
-                        <button
-                          type="button"
-                          class="atc-btn-submit custom-add-btn"
-                          {% if product.available %}
-                            onclick="addToCart(this, '{{ product.selected_or_first_available_variant.id }}', 1)"
-                          {% else %}
-                            disabled
-                          {% endif %}
-                          
-                        >
-                          <span class="btn-text">{% if product.available %}ADD TO CART{% else %}SOLD OUT{% endif %}</span>
-                          <span class="btn-spinner"></span>
-                        </button>
-                      </div> {% endcomment %}
-
                       {% if customer %}
-                      <div class="product-card-action">
-                        <button
-                          type="button"
-                          class="atc-btn-submit custom-add-btn"
-                          {% if product.available %}
-                            onclick="addToCart(this, '{{ product.selected_or_first_available_variant.id }}', 1)"
-                          {% else %}
-                            disabled
-                          {% endif %}
-                        >
-                          <span class="btn-text">{% if product.available %}ADD TO CART{% else %}SOLD OUT{% endif %}</span>
-                          <span class="btn-spinner"></span>
-                        </button>
-                      </div>
-                    {% endif %}
+                        <div class="product-card-action">
+                          <button
+                            type="button"
+                            class="atc-btn-submit custom-add-btn"
+                            {% if product.available %}
+                              onclick="addToCart(this, '{{ product.selected_or_first_available_variant.id }}', 1)"
+                            {% else %}
+                              disabled
+                            {% endif %}
+                          >
+                            <span class="btn-text">{% if product.available %}ADD TO CART{% else %}SOLD OUT{% endif %}</span>
+                            <span class="btn-spinner"></span>
+                          </button>
+                        </div>
+                      {% endif %}
                     </div>
                   </div>
                 {% endfor %}
@@ -223,8 +207,9 @@
 
         <div class="carousel-top-bar">
           {% if collection != blank %}
+            {% assign collection_title = block.settings.collection_custom_name | default: collection.title %}
             <a href="{{ collection.url }}" class="carousel-see-all-link">
-              See All Products 
+              See All {{ collection_title }} Products 
               <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
           {% endif %}
@@ -642,7 +627,6 @@
         let target = bubble.querySelector('span') || bubble;
         target.textContent = count;
 
-        // Force elements to stay visible by stripping away standard theme hidden layouts
         bubble.classList.remove('hidden', 'is-empty');
         bubble.style.setProperty('display', 'flex', 'important');
         bubble.style.setProperty('opacity', '1', 'important');
@@ -672,13 +656,10 @@
       });
 
       if (!addResponse.ok) throw new Error('Failed to add item to cart');
-      const cartObj = await addResponse.json();
 
-      // Fetch absolute updated database snapshot total before processing reload
       const finalCartRes = await fetch(window.Shopify.routes.root + 'cart.js');
       const finalCart = await finalCartRes.json();
 
-      // Cache metrics safely across window re-rendering boundaries
       sessionStorage.setItem('scrollPositionBeforeATC', window.scrollY);
       sessionStorage.setItem('forcedCartCount', finalCart.item_count);
       sessionStorage.setItem('openDrawerOnLoad', 'true');
@@ -694,14 +675,12 @@
 
   // --- ACTIONS EXECUTED ON WINDOW RENDER ---
   document.addEventListener('DOMContentLoaded', function() {
-    // 1. Immediately return user to their previous scroll position
     const savedScroll = sessionStorage.getItem('scrollPositionBeforeATC');
     if (savedScroll !== null) {
       window.scrollTo(0, parseInt(savedScroll, 10));
       sessionStorage.removeItem('scrollPositionBeforeATC'); 
     }
 
-    // 2. Poll for the cart count to overwrite theme timing conflicts
     const targetCount = sessionStorage.getItem('forcedCartCount');
     if (targetCount !== null) {
       const count = parseInt(targetCount, 10);
@@ -709,20 +688,18 @@
       if (count > 0) {
         enforceCartCount(count);
 
-        // Run an interval loop for 3 seconds to check for late-loading scripts
         let counter = 0;
         const persistenceInterval = setInterval(() => {
           enforceCartCount(count);
           counter++;
           if (counter > 30) {
             clearInterval(persistenceInterval);
-            sessionStorage.removeItem('forcedCartCount'); // Clear storage once settled
+            sessionStorage.removeItem('forcedCartCount');
           }
         }, 100);
       }
     }
 
-    // 3. Trigger theme drawer menu display layout adjustments
     const shouldOpenDrawer = sessionStorage.getItem('openDrawerOnLoad');
     if (shouldOpenDrawer === 'true') {
       sessionStorage.removeItem('openDrawerOnLoad'); 

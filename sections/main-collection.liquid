@@ -1,32 +1,3 @@
-{% comment %} CSS Guard: Hide prices and style the collection login button {% endcomment %}
-{% unless customer %}
-  <style>
-    /* Hide prices across all cards & grids */
-    .product-grid-container .price,
-    .product-grid-container .price-block,
-    .product-grid-container [data-block-type="price"],
-    .product-grid-container [data-block-type="buy-buttons"],
-    .product-grid-container .product-price,
-    .product-grid-container .price-item,
-    details[id*="Details-Price"] {
-      display: none !important;
-    }
-
-    product-price,
-    .product-grid-container product-price,
-    .price,
-    .price__regular {
-      display: none !important;
-    }
-
-    quick-add-component,
-    .quick-add {
-      display: none !important;
-    }
-
-  </style>
-{% endunless %}
-
 <script
   src="{{ 'results-list.js' | asset_url }}"
   type="module"
