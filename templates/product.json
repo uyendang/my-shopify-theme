@@ -981,7 +981,7 @@
                 "text_color": "#693434",
                 "background": true,
                 "background_color": "#F1E5E0",
-                "corner_radius": 0,
+                "corner_radius": 10,
                 "padding-block-start": 20,
                 "padding-block-end": 20,
                 "padding-inline-start": 0,
