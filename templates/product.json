@@ -113,6 +113,25 @@
               },
               "blocks": {}
             },
+            "sku_kW4z4i": {
+              "type": "sku",
+              "name": "t:names.product_sku",
+              "settings": {
+                "type_preset": "",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "reviews": {
               "type": "review",
               "settings": {
@@ -234,7 +253,7 @@
               "type": "product-description",
               "name": "t:names.product_description",
               "settings": {
-                "text": "<p>{{ closest.product.description }}</p>",
+                "text": "{{ closest.product.description }}",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -840,6 +859,7 @@
           },
           "block_order": [
             "text_GnyQiN",
+            "sku_kW4z4i",
             "reviews",
             "price_a7krng",
             "variant_picker_R3rGDr",
@@ -983,7 +1003,7 @@
                 "background_color": "{{ settings.color_palette.background }}",
                 "corner_radius": 10,
                 "padding-block-start": 0,
-                "padding-block-end": 50,
+                "padding-block-end": 30,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
